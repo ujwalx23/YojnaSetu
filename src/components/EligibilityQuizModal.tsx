@@ -60,7 +60,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
           
           <div className="flex items-center gap-2 mb-1">
             <Sparkles className="w-5 h-5 text-amber-400 animate-spin-slow" />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-300">AI Scheme Matcher 3.0</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-300">AI Scheme Matcher</span>
           </div>
           <h2 className="text-xl font-black">Step {step} of 4: Profile & Eligibility Wizard</h2>
           

@@ -89,9 +89,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
               <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">
                 Yojna<span className="text-brand-600 dark:text-brand-400">Setu</span>
               </span>
-              <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-amber-500/20">
-                AI 3.0
-              </span>
             </div>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold -mt-0.5 hidden sm:block">
               Official Central, State & CSR Discovery Platform
