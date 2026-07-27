@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { REAL_SCHEMES } from '../data/schemesData';
-import { Scheme, SchemeCategory, SchemeMatchResult } from '../types';
+import { Scheme, ALL_INDIAN_STATES, SchemeMatchResult } from '../types';
 import { SchemeCard } from '../components/SchemeCard';
 import { useAuth } from '../context/AuthContext';
 import { evaluateSchemeEligibility } from '../utils/aiEligibilityEngine';
-import { Search, Filter, ArrowUpDown, SlidersHorizontal, Sparkles, X } from 'lucide-react';
+import { Search, Filter, ArrowUpDown, SlidersHorizontal, Sparkles, X, MapPin, Building, Award } from 'lucide-react';
 
 interface SchemesListProps {
   onSelectScheme: (scheme: Scheme) => void;
@@ -18,11 +18,21 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedState, setSelectedState] = useState<string>('All');
   const [selectedType, setSelectedType] = useState<string>('All');
-  const [maxIncomeFilter, setMaxIncomeFilter] = useState<number>(2500000);
+  const [schemeTypeFilter, setSchemeTypeFilter] = useState<'All' | 'Central Government' | 'State Government' | 'Private/CSR Trust'>('All');
   const [sortBy, setSortBy] = useState<'match' | 'amount' | 'rating'>('match');
 
-  const categories = ['All', 'Agriculture', 'Education & Scholarships', 'Business & Startups', 'Women Empowerment', 'Healthcare & Insurance', 'Housing & Urban', 'Senior Citizens', 'Employment & Skill Development'];
-  const states = ['All', 'All India', 'Maharashtra', 'Delhi', 'Madhya Pradesh', 'Gujarat', 'Uttar Pradesh'];
+  const categories = [
+    'All', 
+    'Agriculture & Farming', 
+    'Education & Scholarships', 
+    'Business, MSME & Startups', 
+    'Women & Child Welfare', 
+    'Healthcare & Insurance', 
+    'Housing & Urban Infrastructure', 
+    'Senior Citizens & Pensions', 
+    'Employment & Skill Training',
+    'Private & CSR Grants'
+  ];
 
   const processedSchemes = useMemo(() => {
     return REAL_SCHEMES.map(scheme => {
@@ -44,25 +54,25 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
       const matchesCat = selectedCategory === 'All' || scheme.category === selectedCategory;
       const matchesState = selectedState === 'All' || scheme.stateAvailability.includes('All India') || scheme.stateAvailability.includes(selectedState);
       const matchesType = selectedType === 'All' || scheme.benefitType === selectedType;
-      const matchesIncome = !scheme.eligibility.maxAnnualFamilyIncome || scheme.eligibility.maxAnnualFamilyIncome <= maxIncomeFilter;
+      const matchesSchemeType = schemeTypeFilter === 'All' || scheme.schemeType === schemeTypeFilter;
 
-      return matchesSearch && matchesCat && matchesState && matchesType && matchesIncome;
+      return matchesSearch && matchesCat && matchesState && matchesType && matchesSchemeType;
     }).sort((a, b) => {
       if (sortBy === 'match') return b.evalRes.matchScore - a.evalRes.matchScore;
       if (sortBy === 'amount') return b.scheme.maxBenefitAmount - a.scheme.maxBenefitAmount;
       return b.scheme.rating - a.scheme.rating;
     });
-  }, [processedSchemes, searchTerm, selectedCategory, selectedState, selectedType, maxIncomeFilter, sortBy]);
+  }, [processedSchemes, searchTerm, selectedCategory, selectedState, selectedType, schemeTypeFilter, sortBy]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 p-8 rounded-3xl text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl border border-slate-800">
         <div>
-          <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Database Engine</span>
+          <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Official Database Engine</span>
           <h1 className="text-2xl sm:text-4xl font-black mt-1">Smart Scheme Discovery</h1>
           <p className="text-xs text-slate-300 mt-2 max-w-xl">
-            Filter through verified Central & State Government schemes using hard eligibility parameters, state filters, and income limits.
+            Filter through verified Central, State, and Private/CSR grants across all 36 Indian States & UTs.
           </p>
         </div>
 
@@ -75,22 +85,45 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
         </button>
       </div>
 
+      {/* Scheme Type Tabs */}
+      <div className="flex border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 rounded-2xl shadow-sm overflow-x-auto gap-2">
+        {[
+          { id: 'All', label: 'All Schemes (Central, State & CSR)' },
+          { id: 'Central Government', label: 'Central Government Schemes' },
+          { id: 'State Government', label: 'State Government Schemes' },
+          { id: 'Private/CSR Trust', label: 'Private & CSR Grants' },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setSchemeTypeFilter(tab.id as any)}
+            className={`px-4 py-3.5 text-xs font-extrabold transition-all border-b-2 whitespace-nowrap ${
+              schemeTypeFilter === tab.id
+                ? 'border-brand-600 text-brand-600 dark:text-brand-400'
+                : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       {/* Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Filters */}
-        <div className="space-y-6 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 h-fit">
+        <div className="space-y-6 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 h-fit shadow-sm">
           <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
             <h3 className="font-bold text-sm flex items-center gap-2 text-slate-900 dark:text-white">
-              <SlidersHorizontal className="w-4 h-4 text-brand-500" /> Filter Schemes
+              <SlidersHorizontal className="w-4 h-4 text-brand-500" /> Filter Criteria
             </h3>
             <button
               onClick={() => {
                 setSelectedCategory('All');
                 setSelectedState('All');
                 setSelectedType('All');
+                setSchemeTypeFilter('All');
                 setSearchTerm('');
               }}
-              className="text-[11px] text-brand-600 dark:text-brand-400 font-semibold hover:underline"
+              className="text-[11px] text-brand-600 dark:text-brand-400 font-bold hover:underline"
             >
               Reset All
             </button>
@@ -98,15 +131,15 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
 
           {/* Search Input */}
           <div>
-            <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Keywords</label>
+            <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Keyword Search</label>
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                placeholder="Title, ministry..."
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white"
+                placeholder="Title, ministry, grant..."
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-medium"
               />
             </div>
           </div>
@@ -117,7 +150,7 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
             <select
               value={selectedCategory}
               onChange={e => setSelectedCategory(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-medium"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-bold"
             >
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -125,13 +158,13 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
 
           {/* State Filter */}
           <div>
-            <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">State Domicile</label>
+            <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">State Domicile (36 States & UTs)</label>
             <select
               value={selectedState}
               onChange={e => setSelectedState(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-medium"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-bold"
             >
-              {states.map(s => <option key={s} value={s}>{s}</option>)}
+              {ALL_INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
 
@@ -141,7 +174,7 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
             <select
               value={selectedType}
               onChange={e => setSelectedType(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-medium"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none focus:border-brand-500 text-slate-900 dark:text-white font-bold"
             >
               <option value="All">All Benefit Types</option>
               <option value="Direct Cash Transfer">Direct Cash Transfer</option>
@@ -159,7 +192,7 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
           {/* Top Bar Sort Controls */}
           <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
             <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
-              Showing <span className="text-brand-600 dark:text-brand-400 font-extrabold">{filtered.length}</span> Verified Schemes
+              Showing <span className="text-brand-600 dark:text-brand-400 font-black">{filtered.length}</span> Verified Schemes
             </span>
 
             <div className="flex items-center gap-2">
@@ -168,7 +201,7 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as any)}
-                className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold outline-none text-slate-800 dark:text-slate-200"
+                className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-extrabold outline-none text-slate-800 dark:text-slate-200"
               >
                 <option value="match">AI Match Score (%)</option>
                 <option value="amount">Max Benefit Amount (₹)</option>
@@ -196,6 +229,7 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
                 onClick={() => {
                   setSelectedCategory('All');
                   setSelectedState('All');
+                  setSchemeTypeFilter('All');
                   setSearchTerm('');
                 }}
                 className="text-xs font-bold text-brand-600 hover:underline"

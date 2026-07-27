@@ -21,7 +21,7 @@ export const StartupHub: React.FC<StartupHubProps> = ({ onSelectScheme }) => {
   const totalInterest = totalPayment - loanAmount;
 
   const startupSchemes = REAL_SCHEMES.filter(s => 
-    s.category === 'Business & Startups' || s.id.includes('mudra') || s.id.includes('startup') || s.id.includes('pmegp')
+    s.category === 'Business, MSME & Startups' || s.id.includes('mudra') || s.id.includes('startup') || s.id.includes('pmegp')
   );
 
   return (

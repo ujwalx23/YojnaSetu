@@ -1,18 +1,17 @@
 import React, { createContext, useContext, useState } from 'react';
 import { TRANSLATIONS, TranslationDictionary } from '../data/translations';
-
-type Language = 'en' | 'hi' | 'mr' | 'gu';
+import { LanguageCode } from '../types';
 
 interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
+  language: LanguageCode;
+  setLanguage: (lang: LanguageCode) => void;
   t: TranslationDictionary;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<LanguageCode>('en');
 
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
 

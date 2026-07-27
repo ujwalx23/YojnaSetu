@@ -21,7 +21,7 @@ export const AdminPanel: React.FC = () => {
 
   const [newSchemeTitle, setNewSchemeTitle] = useState('');
   const [newSchemeDept, setNewSchemeDept] = useState('');
-  const [newSchemeCategory, setNewSchemeCategory] = useState<SchemeCategory>('Agriculture');
+  const [newSchemeCategory, setNewSchemeCategory] = useState<SchemeCategory>('Agriculture & Farming');
   const [newSchemeAmount, setNewSchemeAmount] = useState(10000);
   const [newSchemeDesc, setNewSchemeDesc] = useState('');
 
@@ -197,12 +197,12 @@ export const AdminPanel: React.FC = () => {
                     onChange={e => setNewSchemeCategory(e.target.value as any)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs outline-none"
                   >
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Business & Startups">Business & Startups</option>
+                    <option value="Agriculture & Farming">Agriculture & Farming</option>
+                    <option value="Business, MSME & Startups">Business, MSME & Startups</option>
                     <option value="Education & Scholarships">Education & Scholarships</option>
-                    <option value="Women Empowerment">Women Empowerment</option>
+                    <option value="Women & Child Welfare">Women & Child Welfare</option>
                     <option value="Healthcare & Insurance">Healthcare & Insurance</option>
-                    <option value="Housing & Urban">Housing & Urban</option>
+                    <option value="Housing & Urban Infrastructure">Housing & Urban Infrastructure</option>
                   </select>
                 </div>
                 <div>

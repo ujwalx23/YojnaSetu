@@ -1,13 +1,14 @@
 import { Scheme } from '../types';
 
 export const REAL_SCHEMES: Scheme[] = [
+  // 1. Central Agriculture
   {
     id: 'pm-kisan-2026',
     title: 'PM Kisan Samman Nidhi Yojana',
-    shortDescription: 'Financial benefit of ₹6,000 per year transferred directly into the bank accounts of land-holding farmer families across India.',
+    shortDescription: 'Guaranteed direct cash benefit of ₹6,000 per year transferred directly into the bank accounts of land-holding farmer families across India.',
     fullDescription: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) is a Central Sector scheme with 100% funding from Government of India. Under the scheme, income support of ₹6,000/- per year in three equal installments of ₹2,000/- each is provided to all land-holding farmer families across the country.',
     department: 'Ministry of Agriculture and Farmers Welfare',
-    category: 'Agriculture',
+    category: 'Agriculture & Farming',
     schemeType: 'Central Government',
     benefitType: 'Direct Cash Transfer',
     maxBenefitAmount: 6000,
@@ -22,7 +23,7 @@ export const REAL_SCHEMES: Scheme[] = [
       requiresLandHolding: true,
       allowedOccupations: ['Farmer', 'Agricultural Worker', 'Self-Employed'],
       allowedCategories: ['General', 'OBC', 'SC', 'ST', 'EWS'],
-      customConditions: ['Must own cultivable agricultural land registered in land records']
+      customConditions: ['Must own cultivable agricultural land registered in official state revenue records']
     },
     benefitsList: [
       '₹6,000 guaranteed annual direct cash transfer in 3 installments of ₹2,000',
@@ -45,15 +46,18 @@ export const REAL_SCHEMES: Scheme[] = [
     contactHelpdesk: '155261 / 011-24300606',
     viewsCount: 45200,
     bookmarkCount: 12400,
-    rating: 4.8
+    rating: 4.8,
+    isFeatured: true
   },
+
+  // 2. Central Business Loan
   {
     id: 'pm-mudra-yojana',
     title: 'Pradhan Mantri MUDRA Yojana (PMMY)',
     shortDescription: 'Collateral-free loans up to ₹20 Lakh for non-corporate, non-farm small/micro enterprises for business setup and expansion.',
     fullDescription: 'PMMY provides loans up to 20 Lakhs to micro and small business entities under three categories: Shishu (up to ₹50,000), Kishore (₹50,000 to ₹5 Lakh), and Tarun (₹5 Lakh to ₹20 Lakh). The scheme requires zero collateral and offers subsidized interest rates.',
     department: 'Ministry of Finance / SIDBI',
-    category: 'Business & Startups',
+    category: 'Business, MSME & Startups',
     schemeType: 'Central Government',
     benefitType: 'Subsidized Loan',
     maxBenefitAmount: 2000000,
@@ -90,287 +94,168 @@ export const REAL_SCHEMES: Scheme[] = [
     contactHelpdesk: '1800-180-1111 / 1800-11-0001',
     viewsCount: 68900,
     bookmarkCount: 24100,
-    rating: 4.9
+    rating: 4.9,
+    isFeatured: true
   },
+
+  // 3. Central Artisans & Traditional Crafts
   {
-    id: 'sukanya-samriddhi-2026',
-    title: 'Sukanya Samriddhi Yojana (SSY)',
-    shortDescription: 'High-return (8.2% p.a.) tax-exempt savings scheme for the education and marriage financial security of girl children under age 10.',
-    fullDescription: 'Sukanya Samriddhi Account is a government-backed savings scheme targeted at parents of girl children. It qualifies for Section 80C tax deduction and maturity proceeds are 100% tax-free under EEE status with an attractive interest rate updated quarterly.',
-    department: 'Ministry of Finance / India Post',
-    category: 'Women Empowerment',
-    schemeType: 'Central Government',
-    benefitType: 'Direct Cash Transfer',
-    maxBenefitAmount: 150000,
-    interestRate: 8.2,
-    officialWebsite: 'https://www.indiapost.gov.in',
-    applicationLink: 'https://www.indiapost.gov.in/Financial/Pages/Content/Post-Office-Savings-Schemes.aspx',
-    stateAvailability: ['All India'],
-    eligibility: {
-      maxAge: 10,
-      targetGender: 'Female',
-      isForWomenOnly: true,
-      customConditions: ['Account must be opened by biological parents or legal guardians for a girl child before she turns 10 years old']
-    },
-    benefitsList: [
-      'Highest government-guaranteed interest rate of 8.2% per annum compounding annually',
-      'Income Tax exemption under Section 80C up to ₹1.5 Lakh per year',
-      '50% partial withdrawal allowed for higher education after girl turns 18 years',
-      'Complete Tax-Free Maturity at age 21'
-    ],
-    requiredDocuments: ['Birth Certificate of Girl Child', 'Parent / Guardian Aadhaar & PAN Card', 'Address Proof (Passport/Voter ID/Electricity Bill)', 'Passport size photos'],
-    applicationSteps: [
-      { stepNumber: 1, title: 'Visit Post Office / Bank', detail: 'Visit any India Post branch or authorized public/private commercial bank.' },
-      { stepNumber: 2, title: 'Fill SSY Account Form', detail: 'Fill out Account Opening Form and enclose biological parent details.' },
-      { stepNumber: 3, title: 'Initial Deposit', detail: 'Deposit minimum starting amount of ₹250 (up to max ₹1,50,000 per financial year).' },
-      { stepNumber: 4, title: 'Receive Passbook', detail: 'Collect physical passbook for tracking yearly compounding interest.' }
-    ],
-    faqs: [
-      { question: 'How many accounts can one family open?', answer: 'Maximum 2 accounts for 2 girl children in a family (3 in case of twin girls in first birth).' },
-      { question: 'What is the minimum annual contribution?', answer: 'Minimum deposit is ₹250 per financial year to keep the account active.' }
-    ],
-    deadline: 'Open All Year',
-    lastUpdated: '2026-05-20',
-    contactHelpdesk: '1800-266-6868',
-    viewsCount: 39400,
-    bookmarkCount: 15800,
-    rating: 4.9
-  },
-  {
-    id: 'startup-india-seed-fund',
-    title: 'Startup India Seed Fund Scheme (SISFS)',
-    shortDescription: 'Financial assistance up to ₹50 Lakh to early-stage startups for proof of concept, prototype development, product trials, and market entry.',
-    fullDescription: 'SISFS provides financial assistance to startups for proof of concept, prototype development, product trials, market entry, and commercialization. Seed fund up to ₹20 Lakh is provided as grant and up to ₹50 Lakh as convertible debentures or debt.',
-    department: 'Department for Promotion of Industry and Internal Trade (DPIIT)',
-    category: 'Business & Startups',
-    schemeType: 'Central Government',
-    benefitType: 'Grant',
-    maxBenefitAmount: 5000000,
-    officialWebsite: 'https://seedfund.startupindia.gov.in',
-    applicationLink: 'https://seedfund.startupindia.gov.in/user/register',
-    pdfGuideUrl: 'https://seedfund.startupindia.gov.in/static/media/SISFS_Guidelines.pdf',
-    stateAvailability: ['All India'],
-    eligibility: {
-      minAge: 18,
-      isStartupFounder: true,
-      isForStartupsOnly: true,
-      allowedOccupations: ['Startup Founder', 'Entrepreneur'],
-      customConditions: ['Startup recognized by DPIIT, incorporated not more than 2 years ago, with technology solution']
-    },
-    benefitsList: [
-      'Up to ₹20 Lakh grant for validation of proof of concept, prototype, and product trial',
-      'Up to ₹50 Lakh investment via debt/convertible debentures for market entry and scaling',
-      'Incubator mentorship, lab facilities, and networking opportunities'
-    ],
-    requiredDocuments: ['DPIIT Recognition Certificate', 'Certificate of Incorporation / Partnership Deed', 'Pitch Deck & Business Model Canvas', 'Promoter Aadhaar & PAN Cards', 'Bank Account Details'],
-    applicationSteps: [
-      { stepNumber: 1, title: 'DPIIT Recognition', detail: 'Ensure your startup is DPIIT recognized on startupindia.gov.in.' },
-      { stepNumber: 2, title: 'Apply on SISFS Portal', detail: 'Log in to seedfund.startupindia.gov.in and browse eligible approved incubators.' },
-      { stepNumber: 3, title: 'Submit Proposal', detail: 'Fill startup details, problem statement, solution, target market, and budget request.' },
-      { stepNumber: 4, title: 'Incubator Presentation', detail: 'Present to Incubator Seed Management Committee (ISMC) for milestone-based disbursement.' }
-    ],
-    faqs: [
-      { question: 'Should startup be incorporated in India?', answer: 'Yes, startup must be a Private Limited Company or LLP registered in India.' },
-      { question: 'What if startup has received prior funding?', answer: 'Startups that have received more than ₹10 Lakh from central/state government schemes are ineligible.' }
-    ],
-    deadline: 'Open All Year',
-    lastUpdated: '2026-06-30',
-    contactHelpdesk: '1800-115-565',
-    viewsCount: 52100,
-    bookmarkCount: 19800,
-    rating: 4.8
-  },
-  {
-    id: 'pm-awas-yojana-urban-2026',
-    title: 'Pradhan Mantri Awas Yojana (PMAY-U 2.0)',
-    shortDescription: 'Credit Linked Subsidy & home assistance up to ₹2.50 Lakh for EWS, LIG, and MIG families purchasing or constructing their first pucca house.',
-    fullDescription: 'PMAY-Urban 2.0 aims to address urban housing shortage among EWS/LIG/MIG categories. It provides upfront interest subsidy of 6.5% on housing loans up to ₹6 Lakh for 20 years, saving over ₹2.5 Lakh in interest payouts.',
-    department: 'Ministry of Housing and Urban Affairs (MoHUA)',
-    category: 'Housing & Urban',
-    schemeType: 'Central Government',
-    benefitType: 'Subsidy',
-    maxBenefitAmount: 250000,
-    subsidyPercentage: 6.5,
-    officialWebsite: 'https://pmaymis.gov.in',
-    applicationLink: 'https://pmaymis.gov.in/open/find_benefit_component.aspx',
-    stateAvailability: ['All India'],
-    eligibility: {
-      minAge: 21,
-      maxAge: 70,
-      maxAnnualFamilyIncome: 1800000,
-      customConditions: ['Beneficiary family must not own a pucca house anywhere in India in any family member name']
-    },
-    benefitsList: [
-      'Upfront interest subsidy up to ₹2.67 Lakh credited directly to home loan principal account',
-      'Preference for female head of household in property ownership',
-      'Construction grant up to ₹1.5 Lakh for beneficiary-led individual house construction'
-    ],
-    requiredDocuments: ['Aadhaar Card of all family members', 'Income Certificate / Salary Slip / Form 16', 'Property Documents / Approved Plan', 'No Pucca House Affidavit', 'Bank Account Details'],
-    applicationSteps: [
-      { stepNumber: 1, title: 'Check Category', detail: 'Identify income group: EWS (<3L), LIG (3L-6L), MIG-I (6L-12L), MIG-II (12L-18L).' },
-      { stepNumber: 2, title: 'Apply via Housing Loan Bank', detail: 'Apply for home loan from PMAY-partnered bank or HFC and request PMAY interest subsidy.' },
-      { stepNumber: 3, title: 'CLSS Tracker Verification', detail: 'Central Nodal Agency (NHB/HUDCO) verifies family non-ownership via Aadhaar database.' },
-      { stepNumber: 4, title: 'Subsidy Credit', detail: 'Approved subsidy is transferred directly to home loan account reducing monthly EMI.' }
-    ],
-    faqs: [
-      { question: 'Is female ownership compulsory?', answer: 'Female ownership or co-ownership is mandatory for EWS and LIG categories.' }
-    ],
-    deadline: '2026-12-31',
-    lastUpdated: '2026-06-10',
-    contactHelpdesk: '1800-11-3377 / 1800-11-3388',
-    viewsCount: 74200,
-    bookmarkCount: 31000,
-    rating: 4.7
-  },
-  {
-    id: 'post-matric-scholarship-sc-st-obc',
-    title: 'Post-Matric Scholarship for SC / ST / OBC Students',
-    shortDescription: 'Complete tuition fee waiver, maintenance allowance up to ₹13,500/year, and study material assistance for post-secondary education.',
-    fullDescription: 'Centrally Sponsored Scheme to enable SC/ST/OBC students to complete post-matriculation or post-secondary courses. It covers full non-refundable tuition fees, compulsory institutional fees, and monthly maintenance allowance.',
-    department: 'Ministry of Social Justice and Empowerment',
-    category: 'Education & Scholarships',
-    schemeType: 'Central Government',
-    benefitType: 'Scholarship',
-    maxBenefitAmount: 120000,
-    officialWebsite: 'https://scholarships.gov.in',
-    applicationLink: 'https://scholarships.gov.in',
-    stateAvailability: ['All India'],
-    eligibility: {
-      minAge: 15,
-      maxAge: 35,
-      isStudent: true,
-      maxAnnualFamilyIncome: 250000,
-      allowedCategories: ['SC', 'ST', 'OBC', 'EWS'],
-      allowedEducation: ['Class 11', 'Class 12', 'Diploma', 'Undergraduate (BA/BSc/BCom/BTech)', 'Postgraduate (MA/MSc/MTech)', 'PhD'],
-      customConditions: ['Must be enrolled in recognized school, college, or university']
-    },
-    benefitsList: [
-      '100% waiving/reimbursement of official non-refundable tuition fees',
-      'Monthly maintenance allowance ranging from ₹550 to ₹1,350 per month based on course group',
-      'Additional disability allowance for handicapped students up to ₹4,000 per year'
-    ],
-    requiredDocuments: ['Aadhaar Card', 'Caste Certificate (issued by competent authority)', 'Income Certificate (issued by Tehsildar)', 'Mark Sheets of Previous Qualifying Exam', 'College Fee Receipt & Bonafide Certificate', 'Bank Passbook linked with Aadhaar'],
-    applicationSteps: [
-      { stepNumber: 1, title: 'Register on NSP', detail: 'Go to National Scholarship Portal (scholarships.gov.in) and register using Aadhaar.' },
-      { stepNumber: 2, title: 'Fill Application Form', detail: 'Enter academic, domicile, caste certificate number, and institution code.' },
-      { stepNumber: 3, title: 'Institutional Verification', detail: 'Upload documents for verification by your college Nodal Officer.' },
-      { stepNumber: 4, title: 'Direct Benefit Transfer', detail: 'State Nodal Agency approves and transfers scholarship directly to student bank account.' }
-    ],
-    faqs: [
-      { question: 'Can I apply if studying in private college?', answer: 'Yes, as long as the private college is government-recognized and affiliated.' }
-    ],
-    deadline: '2026-10-31',
-    lastUpdated: '2026-07-15',
-    contactHelpdesk: '0120-6619540',
-    viewsCount: 89000,
-    bookmarkCount: 38200,
-    rating: 4.9
-  },
-  {
-    id: 'stand-up-india-2026',
-    title: 'Stand-Up India Scheme',
-    shortDescription: 'Bank loans between ₹10 Lakh and ₹1 Crore to at least one SC/ST borrower and one woman borrower per bank branch for greenfield enterprises.',
-    fullDescription: 'Stand-Up India facilitates bank loans between ₹10 Lakh and ₹1 Crore to SC/ST and women entrepreneurs for setting up a greenfield enterprise in manufacturing, services, or trading sector.',
-    department: 'Department of Financial Services (DFS)',
-    category: 'Business & Startups',
+    id: 'pm-vishwakarma-2026',
+    title: 'PM Vishwakarma Yojana',
+    shortDescription: 'Collateral-free loan up to ₹3 Lakh at 5% interest, toolkits incentive of ₹15,000, and skill training for traditional artisans & craftspeople.',
+    fullDescription: 'PM Vishwakarma aims to strengthen and nurture the Guru-Shishya parampara or family-based practice of traditional skills by artisans and craftspeople working with hands and tools. Covers 18 traditional trades including Carpenters, Blacksmiths, Goldsmiths, Potters, Tailors, and Masons.',
+    department: 'Ministry of Micro, Small and Medium Enterprises (MSME)',
+    category: 'Employment & Skill Training',
     schemeType: 'Central Government',
     benefitType: 'Subsidized Loan',
-    maxBenefitAmount: 10000000,
-    interestRate: 7.9,
-    officialWebsite: 'https://www.standupmitra.in',
-    applicationLink: 'https://www.standupmitra.in/Login/Register',
+    maxBenefitAmount: 300000,
+    interestRate: 5.0,
+    officialWebsite: 'https://pmvishwakarma.gov.in',
+    applicationLink: 'https://pmvishwakarma.gov.in/Registration',
     stateAvailability: ['All India'],
     eligibility: {
       minAge: 18,
-      maxAge: 65,
-      isBusinessOwner: true,
-      allowedCategories: ['SC', 'ST', 'General', 'OBC'],
-      customConditions: ['Must be an SC/ST or Woman entrepreneur setting up a new (greenfield) business']
+      allowedOccupations: ['Artisan', 'Self-Employed', 'Craftsperson'],
+      customConditions: ['Must be working in one of the 18 traditional family trades using hands and tools']
     },
     benefitsList: [
-      'Composite loan (Term loan + Working capital) between ₹10,000,000 and ₹100,000,000',
-      'Lowest applicable interest rate of the bank (Base Rate / MCLR + 3% max)',
-      'Credit Guarantee Scheme for Stand-Up India (CGSSI) coverage minimizing collateral needs'
+      'PM Vishwakarma Digital Certificate and ID Card recognition',
+      'Basic Skill Training (5-7 days) with stipend of ₹500 per day',
+      '₹15,000 Toolkit Incentive voucher credited to digital wallet',
+      'Collateral-free credit support: 1st tranche ₹1 Lakh, 2nd tranche ₹2 Lakh at 5% concessional interest rate'
     ],
-    requiredDocuments: ['Aadhaar & PAN', 'Caste Certificate (if SC/ST)', 'Business Premises Registration/Lease', 'Project Report & Financial Forecasts', '6 Months Bank Statement'],
+    requiredDocuments: ['Aadhaar Card', 'Active Mobile Number', 'Bank Account Passbook', 'Ration Card'],
     applicationSteps: [
-      { stepNumber: 1, title: 'Register on StandUp Mitra', detail: 'Register on standupmitra.in portal and complete borrower profile.' },
-      { stepNumber: 2, title: 'Select Handholding Agency', detail: 'Optionally choose handholding assistance for project report, skill training, or registration.' },
-      { stepNumber: 3, title: 'Submit Loan Application', detail: 'Submit detailed project report to selected bank branch.' },
-      { stepNumber: 4, title: 'Sanction & Disbursement', detail: 'Bank processes application under Stand-Up India quota and disburses loan.' }
+      { stepNumber: 1, title: 'CSC Registration', detail: 'Visit nearest Common Service Center (CSC) for biometric verification.' },
+      { stepNumber: 2, title: 'Gram Panchayat Verification', detail: 'Verification of traditional trade by Gram Panchayat or Urban Local Body.' },
+      { stepNumber: 3, title: 'Skill Training', detail: 'Complete basic training and receive ₹15,000 toolkit voucher.' },
+      { stepNumber: 4, title: 'Loan Disbursement', detail: 'Receive 1st credit tranche of ₹1 Lakh into bank account.' }
     ],
     faqs: [
-      { question: 'What is a greenfield enterprise?', answer: 'Greenfield means the first time venture of the beneficiary in manufacturing or service sector.' }
+      { question: 'How many members per family can apply?', answer: 'The benefit is restricted to one member per family.' }
     ],
     deadline: 'Open All Year',
-    lastUpdated: '2026-06-01',
-    contactHelpdesk: '1800-180-1122',
-    viewsCount: 31200,
-    bookmarkCount: 11400,
-    rating: 4.7
+    lastUpdated: '2026-06-28',
+    contactHelpdesk: '1800-267-7777',
+    viewsCount: 54100,
+    bookmarkCount: 18900,
+    rating: 4.8,
+    isFeatured: true
   },
+
+  // 4. Private / CSR - Tata Trusts Scholarship
   {
-    id: 'pmegp-subsidy-scheme',
-    title: 'Prime Minister Employment Generation Programme (PMEGP)',
-    shortDescription: 'Credit-linked subsidy up to 35% on micro-enterprise projects up to ₹50 Lakh for manufacturing and ₹20 Lakh for service sector.',
-    fullDescription: 'PMEGP is a major credit-linked subsidy program administered by KVIC. It aims to generate self-employment opportunities through establishment of micro-enterprises in non-farm sector across rural and urban areas.',
-    department: 'Khadi and Village Industries Commission (KVIC) / MSME',
-    category: 'Business & Startups',
-    schemeType: 'Central Government',
-    benefitType: 'Subsidy',
-    maxBenefitAmount: 1750000,
-    subsidyPercentage: 35,
-    officialWebsite: 'https://www.kviconline.gov.in/pmegpeportal',
-    applicationLink: 'https://www.kviconline.gov.in/pmegpeportal/pmegpfilters/jsp/pmeform.jsp',
+    id: 'tata-trusts-means-scholarship',
+    title: 'Tata Trusts Means Grant & Higher Education Scholarship',
+    shortDescription: 'Private CSR grant up to ₹2,00,000/year for meritorious undergraduate and postgraduate students pursuing Bachelor/Master degrees in India.',
+    fullDescription: 'Tata Trusts provides financial assistance to deserving students pursuing Higher Education in engineering, medical, science, and professional courses. Selection is based on academic excellence and family annual income under ₹4.5 Lakh.',
+    department: 'Tata Trusts Philanthropy Division',
+    category: 'Private & CSR Grants',
+    schemeType: 'Private/CSR Trust',
+    benefitType: 'Scholarship',
+    maxBenefitAmount: 200000,
+    officialWebsite: 'https://www.tatatrusts.org',
+    applicationLink: 'https://www.tatatrusts.org/our-work/individual-grants-programme/education-grants',
     stateAvailability: ['All India'],
     eligibility: {
-      minAge: 18,
-      allowedEducation: ['Class 8 Pass', 'Class 10', 'Class 12', 'Graduate'],
-      allowedOccupations: ['Unemployed', 'Artisan', 'Self-Employed', 'Business Owner'],
-      customConditions: ['Project cost maximum ₹50 Lakh for Manufacturing and ₹20 Lakh for Service sector']
+      minAge: 16,
+      maxAge: 30,
+      isStudent: true,
+      maxAnnualFamilyIncome: 450000,
+      allowedEducation: ['Undergraduate (BA/BSc/BCom/BTech)', 'Postgraduate (MA/MSc/MTech)', 'Medical (MBBS)'],
+      customConditions: ['Must have scored minimum 60% marks in previous academic qualifying examination']
     },
     benefitsList: [
-      '15% to 35% margin money subsidy provided by Government of India',
-      'Rural category beneficiaries receive higher subsidy (25% for General, 35% for SC/ST/OBC/Women)',
-      'Bank provides 90% to 95% of total project cost as loan'
+      'Up to ₹2,00,000 annual non-repayable education grant covering tuition fees & hostel expenses',
+      'Mentorship from Tata Group professionals and internship opportunities',
+      'Special preference for single mother families and divyangjan students'
     ],
-    requiredDocuments: ['Aadhaar Card', 'Highest Educational Certificate (min 8th pass)', 'Project Report / Detailed Estimate', 'Caste / Special Category Certificate', 'EDP Training Certificate'],
+    requiredDocuments: ['Aadhaar Card', 'Mark Sheets of 10th, 12th & Semester Exams', 'Income Certificate / Salary Certificate', 'Current Year College Fee Structure & Receipt', 'Bank Account Details'],
     applicationSteps: [
-      { stepNumber: 1, title: 'Fill Online Application', detail: 'Apply online on kviconline.gov.in selecting KVIC/KVIB/DIC as agency.' },
-      { stepNumber: 2, title: 'Upload Project Report', detail: 'Attach detailed project profile, land documents, and ID proof.' },
-      { stepNumber: 3, title: 'Task Force Interview', detail: 'District Level Task Force Committee (DLTFC) scrutinizes application and recommends to bank.' },
-      { stepNumber: 4, title: 'EDP Training & Subsidy Release', detail: 'Complete 10-day Entrepreneurship Development Programme (EDP) for subsidy lock-in.' }
+      { stepNumber: 1, title: 'Online Application Portal', detail: 'Register on Tata Trusts portal during open application window (July-October).' },
+      { stepNumber: 2, title: 'Upload Marksheets & Income Proof', detail: 'Submit certified copies of previous exam marksheets and Tehsildar income proof.' },
+      { stepNumber: 3, title: 'Interview Evaluation', detail: 'Shortlisted candidates attend online panel interaction.' },
+      { stepNumber: 4, title: 'Grant Sanction', detail: 'Scholarship amount disbursed directly to institution account.' }
     ],
     faqs: [
-      { question: 'Is educational qualification compulsory?', answer: 'For projects above ₹10 Lakh in manufacturing and ₹5 Lakh in service, 8th pass is required.' }
+      { question: 'Is this scholarship open for private college students?', answer: 'Yes, as long as the institute is NAAC/AICTE accredited in India.' }
     ],
-    deadline: 'Open All Year',
-    lastUpdated: '2026-05-18',
-    contactHelpdesk: '1800-3000-0039',
-    viewsCount: 62400,
-    bookmarkCount: 21900,
-    rating: 4.8
+    deadline: '2026-10-15',
+    lastUpdated: '2026-07-10',
+    contactHelpdesk: '022-66658282 / igp@tatatrusts.org',
+    viewsCount: 41200,
+    bookmarkCount: 16400,
+    rating: 4.9,
+    isFeatured: true
   },
+
+  // 5. Private / CSR - Reliance Foundation Undergraduate Scholarship
+  {
+    id: 'reliance-foundation-scholarship',
+    title: 'Reliance Foundation Undergraduate Scholarship',
+    shortDescription: 'Merit-cum-means scholarship of up to ₹2,00,000 for undergraduate students pursuing degree courses across all streams in India.',
+    fullDescription: 'Reliance Foundation selects 5,000 undergraduate scholars every year for grants up to ₹2 Lakh over the duration of their degree program. Open to first-year students enrolled in any full-time undergraduate degree program in India.',
+    department: 'Reliance Foundation Philanthropy Division',
+    category: 'Private & CSR Grants',
+    schemeType: 'Private/CSR Trust',
+    benefitType: 'Scholarship',
+    maxBenefitAmount: 200000,
+    officialWebsite: 'https://www.scholarships.reliancefoundation.org',
+    applicationLink: 'https://www.scholarships.reliancefoundation.org/UG_Scholarship.aspx',
+    stateAvailability: ['All India'],
+    eligibility: {
+      minAge: 17,
+      maxAge: 25,
+      isStudent: true,
+      maxAnnualFamilyIncome: 1500000,
+      allowedEducation: ['Undergraduate (BA/BSc/BCom/BTech)'],
+      customConditions: ['Must be in 1st year of full-time undergraduate degree with minimum 60% in 12th class']
+    },
+    benefitsList: [
+      'Grant of up to ₹2,00,000 for the duration of the degree course',
+      'Access to vibrant alumni network, leadership workshops, and career development programs',
+      'No obligation to work for Reliance Group'
+    ],
+    requiredDocuments: ['Aadhaar Card', 'Class 12th Mark sheet', 'Family Income Proof', 'Bonafide Student Certificate from College'],
+    applicationSteps: [
+      { stepNumber: 1, title: 'Aptitude Test', detail: 'Complete 60-minute online aptitude test testing verbal, analytical, and numerical skills.' },
+      { stepNumber: 2, title: 'Submit Documents', detail: 'Upload marksheets and income certificate.' },
+      { stepNumber: 3, title: 'Merit List Declaration', detail: '5,000 scholars selected based on aptitude score and financial need.' },
+      { stepNumber: 4, title: 'Direct Disbursement', detail: 'Grant credited in annual installments into student bank account.' }
+    ],
+    faqs: [
+      { question: 'Is income cap strict?', answer: 'Preference is given to students with family income less than ₹2.5 Lakh per year.' }
+    ],
+    deadline: '2026-09-30',
+    lastUpdated: '2026-07-02',
+    contactHelpdesk: 'RF.Scholarships@reliancefoundation.org',
+    viewsCount: 38900,
+    bookmarkCount: 14200,
+    rating: 4.9,
+    isFeatured: true
+  },
+
+  // 6. State Government - Maharashtra (Ladli Bahna)
   {
     id: 'ladli-bahna-maharashtra-mp',
-    title: 'Mukhyamantri Majhi Ladki Bahin Yojana',
-    shortDescription: 'Monthly financial cash benefit of ₹1,500 transferred directly to women aged 21-65 years with annual family income below ₹2.5 Lakh.',
-    fullDescription: 'State welfare flagship program aimed at providing economic independence and health security to women. A monthly grant of ₹1,500 is directly deposited into Aadhaar-seeded bank accounts of eligible women residents.',
-    department: 'Department of Women and Child Development (State Government)',
-    category: 'Women Empowerment',
+    title: 'Mukhyamantri Majhi Ladki Bahin Yojana (Maharashtra)',
+    shortDescription: 'Monthly cash allowance of ₹1,500 transferred directly to women aged 21-65 years with annual family income below ₹2.5 Lakh.',
+    fullDescription: 'Flagship welfare scheme of Government of Maharashtra aimed at providing economic independence, nutritional security, and financial dignity to women. ₹1,500 is directly credited on 15th of every month to Aadhaar-seeded bank accounts.',
+    department: 'Department of Women and Child Development (Maharashtra Govt)',
+    category: 'Women & Child Welfare',
     schemeType: 'State Government',
     benefitType: 'Direct Cash Transfer',
     maxBenefitAmount: 18000,
     officialWebsite: 'https://ladlibahin.maharashtra.gov.in',
     applicationLink: 'https://ladlibahin.maharashtra.gov.in/register',
-    stateAvailability: ['Maharashtra', 'Madhya Pradesh'],
+    stateAvailability: ['Maharashtra'],
     eligibility: {
       minAge: 21,
       maxAge: 65,
       targetGender: 'Female',
       isForWomenOnly: true,
       maxAnnualFamilyIncome: 250000,
-      customConditions: ['Must be a permanent resident of Maharashtra/Madhya Pradesh with Aadhaar linked bank account']
+      customConditions: ['Must be a permanent resident of Maharashtra with Aadhaar linked bank account']
     },
     benefitsList: [
       '₹1,500 per month (₹18,000 annually) direct cash assistance',
@@ -392,128 +277,182 @@ export const REAL_SCHEMES: Scheme[] = [
     contactHelpdesk: '181 / 022-22027050',
     viewsCount: 112000,
     bookmarkCount: 45000,
-    rating: 4.9
+    rating: 4.9,
+    isFeatured: true
   },
+
+  // 7. State Government - Uttar Pradesh (Kanya Sumangala)
   {
-    id: 'ayushman-bharat-pmjay-2026',
-    title: 'Ayushman Bharat PM-JAY (Senior Citizen 70+ Included)',
-    shortDescription: 'Free health insurance cover up to ₹5 Lakh per family per year for secondary and tertiary care hospitalization in top hospitals.',
-    fullDescription: 'Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY) is the world\'s largest health insurance scheme. It covers up to 3 days of pre-hospitalization, 15 days post-hospitalization, and over 1,950 medical procedures including cancer treatment and surgeries.',
-    department: 'National Health Authority (NHA) / Ministry of Health',
-    category: 'Healthcare & Insurance',
-    schemeType: 'Central Government',
-    benefitType: 'Free Service/Insurance',
-    maxBenefitAmount: 500000,
-    officialWebsite: 'https://dashboard.pmjay.gov.in',
-    applicationLink: 'https://beneficiary.nha.gov.in',
-    stateAvailability: ['All India'],
+    id: 'mukhya-mantri-kanya-sumangala-up',
+    title: 'Mukhya Mantri Kanya Sumangala Yojana (Uttar Pradesh)',
+    shortDescription: 'Financial assistance of ₹25,000 provided in 6 stages from birth to graduation for girl children of UP resident families.',
+    fullDescription: 'UP State Government scheme designed to prevent female foeticide, promote girl child birth, improve healthcare & education. Total benefit of ₹25,000 is disbursed across key milestones: birth, vaccination, Class 1, Class 6, Class 9, and Degree/Diploma admission.',
+    department: 'Women and Child Development Department (Uttar Pradesh)',
+    category: 'Women & Child Welfare',
+    schemeType: 'State Government',
+    benefitType: 'Direct Cash Transfer',
+    maxBenefitAmount: 25000,
+    officialWebsite: 'https://mksy.up.gov.in',
+    applicationLink: 'https://mksy.up.gov.in/women_welfare/citizen/guest_user_registration.php',
+    stateAvailability: ['Uttar Pradesh'],
     eligibility: {
-      minAge: 0,
-      maxAge: 100,
+      maxAge: 25,
+      targetGender: 'Female',
+      isForWomenOnly: true,
       maxAnnualFamilyIncome: 300000,
-      customConditions: ['Covered under SECC 2011 data, Ration Card holder, or Senior Citizen aged 70+ (universal coverage regardless of income)']
+      customConditions: ['Family must be resident of UP with maximum 2 girl children in the family']
     },
     benefitsList: [
-      '₹5,00,000 annual cashless hospitalization coverage per family across 29,000+ empanelled hospitals',
-      'Covers pre-existing diseases from day one with zero waiting period',
-      'Special Universal ₹5 Lakh cover for ALL Senior Citizens aged 70+ regardless of family income'
+      '₹5,000 on birth of girl child',
+      '₹2,000 on completing full immunization within 1 year',
+      '₹3,000 on admission to Class 1, Class 6, and Class 9',
+      '₹7,000 on passing Class 10/12 and enrolling in Degree/Diploma course'
     ],
-    requiredDocuments: ['Aadhaar Card', 'Ration Card / PM-JAY Letter', 'Active Mobile Number'],
+    requiredDocuments: ['Domicile Certificate of UP', 'Aadhaar Card of Parent & Child', 'Income Certificate (<3L)', 'Birth Certificate of Girl Child', 'Bank Account Passbook'],
     applicationSteps: [
-      { stepNumber: 1, title: 'Check Eligibility', detail: 'Visit beneficiary.nha.gov.in and search by Mobile Number, Aadhaar, or Ration Card.' },
-      { stepNumber: 2, title: 'Biometric Auth', detail: 'Complete eKYC at empanelled hospital or Ayushman Mitra booth.' },
-      { stepNumber: 3, title: 'Generate Ayushman Card', detail: 'Download digital Ayushman Card instantly.' },
-      { stepNumber: 4, title: 'Cashless Hospitalization', detail: 'Show Ayushman Card at hospital desk for 100% free cashless treatment.' }
+      { stepNumber: 1, title: 'Citizen Portal Registration', detail: 'Register on mksy.up.gov.in creating Login ID.' },
+      { stepNumber: 2, title: 'Select Stage Category', detail: 'Choose applicable stage (Stage 1 to Stage 6).' },
+      { stepNumber: 3, title: 'Document Upload', detail: 'Upload birth certificate, hospital discharge summary, or school admission receipt.' },
+      { stepNumber: 4, title: 'SDM Verification & Disbursement', detail: 'District officer approves and transfers amount to parent account.' }
     ],
     faqs: [
-      { question: 'Is there any restriction on family size?', answer: 'No restriction on family size, age, or gender.' }
+      { question: 'What if mother dies?', answer: 'Father or legal guardian can apply with father income certificate.' }
     ],
     deadline: 'Open All Year',
-    lastUpdated: '2026-06-25',
-    contactHelpdesk: '14555 / 1800-111-565',
-    viewsCount: 98000,
-    bookmarkCount: 39000,
-    rating: 4.9
-  },
-  {
-    id: 'pm-surya-ghar-muft-bijli',
-    title: 'PM-Surya Ghar: Muft Bijli Yojana',
-    shortDescription: 'Subsidy up to ₹78,000 for installing rooftop solar power systems, providing up to 300 units of free electricity every month.',
-    fullDescription: 'PM-Surya Ghar aims to power 1 Crore households with rooftop solar installations. It offers direct central subsidy of ₹30,000 for 1kW, ₹60,000 for 2kW, and ₹78,000 for 3kW systems, alongside collateral-free solar loans at 7% interest.',
-    department: 'Ministry of New and Renewable Energy (MNRE)',
-    category: 'Housing & Urban',
-    schemeType: 'Central Government',
-    benefitType: 'Subsidy',
-    maxBenefitAmount: 78000,
-    subsidyPercentage: 60,
-    officialWebsite: 'https://pmsuryaghar.gov.in',
-    applicationLink: 'https://pmsuryaghar.gov.in/consumerRegistration',
-    stateAvailability: ['All India'],
-    eligibility: {
-      minAge: 18,
-      customConditions: ['Applicant must own a residential house with suitable roof space and active electricity connection']
-    },
-    benefitsList: [
-      'Up to ₹78,000 direct subsidy credited into bank account within 30 days of net-meter installation',
-      '300 units of free monthly electricity saving ₹18,000-₹24,000 annually',
-      'Collateral-free low interest loan (7% interest) from scheduled commercial banks'
-    ],
-    requiredDocuments: ['Electricity Bill (latest 3 months)', 'Aadhaar Card', 'Bank Account Details', 'Proof of Roof Ownership / Electricity Connection'],
-    applicationSteps: [
-      { stepNumber: 1, title: 'Register on National Portal', detail: 'Register on pmsuryaghar.gov.in entering state, electricity DISCOM name, and consumer number.' },
-      { stepNumber: 2, title: 'DISCOM Feasibility Approval', detail: 'Apply for rooftop solar; local DISCOM inspects and approves technical feasibility.' },
-      { stepNumber: 3, title: 'Vendor Installation', detail: 'Get system installed through empanelled registered vendor.' },
-      { stepNumber: 4, title: 'Net-Meter & Subsidy Claim', detail: 'DISCOM installs net-meter, generates commissioning certificate; subsidy credited to bank.' }
-    ],
-    faqs: [
-      { question: 'Can I sell excess electricity generated back to grid?', answer: 'Yes, extra units generated are fed back to grid via net-metering and credited in your bill.' }
-    ],
-    deadline: 'Open All Year',
-    lastUpdated: '2026-07-01',
-    contactHelpdesk: '15555',
-    viewsCount: 71000,
-    bookmarkCount: 29000,
+    lastUpdated: '2026-06-20',
+    contactHelpdesk: '1800-180-0300',
+    viewsCount: 48200,
+    bookmarkCount: 19100,
     rating: 4.8
   },
+
+  // 8. State Government - Bihar Student Credit Card
   {
-    id: 'pm-svanidhi-street-vendors',
-    title: 'PM SVANidhi (Street Vendor Loan Scheme)',
-    shortDescription: 'Collateral-free working capital loan starting at ₹10,000, scaling to ₹20,000 and ₹50,000 with 7% interest subsidy and cashback on digital transactions.',
-    fullDescription: 'PM Street Vendor\'s AtmaNirbhar Nidhi (PM SVANidhi) provides affordable working capital loan to street vendors to resume their livelihoods. Regular repayment unlocks higher loan brackets and annual cashbacks on digital UPI payments.',
-    department: 'Ministry of Housing and Urban Affairs (MoHUA)',
-    category: 'Employment & Skill Development',
-    schemeType: 'Central Government',
+    id: 'bihar-student-credit-card',
+    title: 'Bihar Student Credit Card Scheme (BSCCS)',
+    shortDescription: 'Education loan up to ₹4 Lakh at 1% interest for girls/disabled and 4% for general students for higher education in India.',
+    fullDescription: 'Under Bihar Vikas Mission, Government of Bihar provides education loan up to ₹4 Lakh to students who have passed 12th class for pursuing higher courses (B.Tech, MBBS, BBA, BCA, BSc, BA). Zero collateral required.',
+    department: 'Education Department (Government of Bihar)',
+    category: 'Education & Scholarships',
+    schemeType: 'State Government',
     benefitType: 'Subsidized Loan',
-    maxBenefitAmount: 50000,
-    interestRate: 7.0,
-    officialWebsite: 'https://pmsvanidhi.mohua.gov.in',
-    applicationLink: 'https://pmsvanidhi.mohua.gov.in/SchemeApplication',
-    stateAvailability: ['All India'],
+    maxBenefitAmount: 400000,
+    interestRate: 1.0,
+    officialWebsite: 'https://www.7nishchay-yuvaupmission.bihar.gov.in',
+    applicationLink: 'https://www.7nishchay-yuvaupmission.bihar.gov.in/addStudent',
+    stateAvailability: ['Bihar'],
     eligibility: {
-      minAge: 18,
-      allowedOccupations: ['Street Vendor', 'Artisan', 'Self-Employed', 'Hawker'],
-      customConditions: ['Vending in urban areas on or before March 24, 2020 with Certificate of Vending or ULB recommendation letter']
+      minAge: 17,
+      maxAge: 25,
+      isStudent: true,
+      allowedEducation: ['Class 12', 'Undergraduate (BA/BSc/BCom/BTech)', 'Diploma'],
+      customConditions: ['Must be a permanent resident of Bihar and passed 12th class from recognized Bihar board/CBSE']
     },
     benefitsList: [
-      'Collateral-free loan: 1st tranche ₹10,000, 2nd tranche ₹20,000, 3rd tranche ₹50,000',
-      '7% per annum interest subsidy credited directly to account quarterly',
-      'Up to ₹1,200 annual cashback incentive for accepting digital payments via QR codes'
+      'Up to ₹4,00,000 education loan covering college fees, hostel fees, books & laptop purchase',
+      'Ultra-low interest rate: 1% p.a. for female, transgender & divyangjan students; 4% for male students',
+      'Repayment moratorium: Repayment starts 1 year after course completion or getting a job'
     ],
-    requiredDocuments: ['Aadhaar Card', 'Vending Certificate / Urban Local Body (ULB) Identity Card', 'Bank Account Passbook', 'Mobile Number linked with Aadhaar'],
+    requiredDocuments: ['10th & 12th Marksheet', 'Aadhaar Card of Student & Parent', 'Residential Domicile Certificate of Bihar', 'College Admission Letter & Fee Structure', '2 Passport Photos'],
     applicationSteps: [
-      { stepNumber: 1, title: 'Check Vending Status', detail: 'Verify vendor survey status on pmsvanidhi.mohua.gov.in.' },
-      { stepNumber: 2, title: 'Fill Online Form', detail: 'Apply online or visit Common Service Center (CSC).' },
-      { stepNumber: 3, title: 'Select Bank', detail: 'Choose nearest public sector bank for instant processing.' },
-      { stepNumber: 4, title: 'Disbursement & QR Kit', detail: 'Loan disbursed to bank account; receive free UPI QR code stand for cashback.' }
+      { stepNumber: 1, title: 'Register on MNSSBY Portal', detail: 'Register online on 7nishchay-yuvaupmission.bihar.gov.in.' },
+      { stepNumber: 2, title: 'DRCC Appointment', detail: 'Book slot for physical document verification at District Registration and Counseling Center (DRCC).' },
+      { stepNumber: 3, title: 'DRCC Document Audit', detail: 'Visit DRCC with original documents for instant biometric scanning.' },
+      { stepNumber: 4, title: 'Approval & Fund Transfer', detail: 'Bihar State Single Window System disburses loan directly to college bank account.' }
     ],
     faqs: [
-      { question: 'What if vendor name is not in ULB survey list?', answer: 'Vendor can request Letter of Recommendation (LoR) from Town Vending Committee.' }
+      { question: 'Is co-applicant compulsory?', answer: 'Parent/guardian acts as co-applicant, but no property collateral is required.' }
     ],
-    deadline: '2026-12-31',
-    lastUpdated: '2026-06-18',
-    contactHelpdesk: '1800-11-1979',
-    viewsCount: 41000,
-    bookmarkCount: 13200,
-    rating: 4.7
+    deadline: 'Open All Year',
+    lastUpdated: '2026-06-30',
+    contactHelpdesk: '1800-3456-444',
+    viewsCount: 61400,
+    bookmarkCount: 22800,
+    rating: 4.8
+  },
+
+  // 9. State Government - Gujarat (Mukhyamantri Amrutam)
+  {
+    id: 'ma-amrutam-gujarat-2026',
+    title: 'Mukhyamantri Amrutam (MA) & MA Vatsalya Yojana (Gujarat)',
+    shortDescription: 'Free tertiary healthcare coverage up to ₹5 Lakh per family per year for BPL and lower income families in Gujarat.',
+    fullDescription: 'Gujarat State flagship health insurance scheme providing 100% cashless medical and surgical treatment for catastrophic illnesses including heart surgery, kidney transplant, neurosurgery, burns, and cancer treatment.',
+    department: 'Health and Family Welfare Department (Government of Gujarat)',
+    category: 'Healthcare & Insurance',
+    schemeType: 'State Government',
+    benefitType: 'Free Service/Insurance',
+    maxBenefitAmount: 500000,
+    officialWebsite: 'https://magujarat.com',
+    applicationLink: 'https://magujarat.com/How_to_Apply.aspx',
+    stateAvailability: ['Gujarat'],
+    eligibility: {
+      maxAnnualFamilyIncome: 400000,
+      customConditions: ['Family must hold BPL ration card or annual income certificate below ₹4 Lakh issued by Mamlatdar']
+    },
+    benefitsList: [
+      'Cashless coverage up to ₹5,00,000 per family per year for 1,700+ medical procedures',
+      '₹300 travel allowance per hospital visit paid to beneficiary',
+      'Covers all pre-existing conditions without any waiting period'
+    ],
+    requiredDocuments: ['Aadhaar Card of all family members', 'Income Certificate from Mamlatdar (<4L)', 'Gujarat Domicile Proof / Ration Card', 'Smart Card Fee ₹50'],
+    applicationSteps: [
+      { stepNumber: 1, title: 'Visit Kiosk', detail: 'Visit Civic Center, Kiosk at District Hospital, or E-Gram center.' },
+      { stepNumber: 2, title: 'Biometric Enrollment', detail: 'Capture fingerprint and iris scan of all family members.' },
+      { stepNumber: 3, title: 'MA Smart Card Issue', detail: 'Receive laminated MA Vatsalya Card instantly.' }
+    ],
+    faqs: [
+      { question: 'Is income certificate needed for BPL card holders?', answer: 'No, BPL card holders do not require separate income certificate.' }
+    ],
+    deadline: 'Open All Year',
+    lastUpdated: '2026-05-15',
+    contactHelpdesk: '1800-233-1022',
+    viewsCount: 39100,
+    bookmarkCount: 15400,
+    rating: 4.9
+  },
+
+  // 10. State Government - Delhi (Jai Bhim Mukhyamantri Pratibha Vikas)
+  {
+    id: 'jai-bhim-coaching-scheme-delhi',
+    title: 'Jai Bhim Mukhyamantri Pratibha Vikas Yojana (Delhi)',
+    shortDescription: 'Free competitive exam coaching (UPSC, NEET, JEE, GATE, Banking) plus ₹2,500 monthly stipend for SC/ST/OBC/EWS students of Delhi.',
+    fullDescription: 'Delhi Government scheme offering free coaching at empanelled premium coaching institutes for competitive exams (UPSC Civil Services, JEE, NEET, CLAT, Banking, SSC). Selected students also receive a monthly stipend of ₹2,500 for books and study material.',
+    department: 'Department for Welfare of SC/ST/OBC (Government of Delhi)',
+    category: 'Education & Scholarships',
+    schemeType: 'State Government',
+    benefitType: 'Grant',
+    maxBenefitAmount: 100000,
+    officialWebsite: 'https://scstwelfare.delhi.gov.in',
+    applicationLink: 'https://edistrict.delhigovt.nic.in',
+    stateAvailability: ['Delhi (NCT)'],
+    eligibility: {
+      minAge: 15,
+      maxAge: 30,
+      isStudent: true,
+      maxAnnualFamilyIncome: 800000,
+      allowedCategories: ['SC', 'ST', 'OBC', 'EWS'],
+      customConditions: ['Must have passed 10th and 12th from a school in Delhi and be a resident of Delhi']
+    },
+    benefitsList: [
+      '100% free coaching fee paid directly by Delhi Govt to top empanelled coaching institutes',
+      '₹2,500 monthly cash stipend credited to student bank account during coaching duration (up to 1 year)',
+      'Covers UPSC Civil Services, IIT-JEE, NEET, GATE, CAT, and Banking Exams'
+    ],
+    requiredDocuments: ['Aadhaar Card (Delhi address)', 'Caste / EWS Certificate', 'Income Certificate (<8L)', 'Class 10th & 12th Marksheet', 'Coaching Institute Enrollment Form'],
+    applicationSteps: [
+      { stepNumber: 1, title: 'Register on e-District Delhi', detail: 'Register on edistrict.delhigovt.nic.in.' },
+      { stepNumber: 2, title: 'Select Coaching Center', detail: 'Choose empanelled institute and course.' },
+      { stepNumber: 3, title: 'Verification', detail: 'Sub-Divisional Magistrate (SDM) verifies income and caste certificate.' },
+      { stepNumber: 4, title: 'Admission & Stipend Release', detail: 'Start coaching; stipend credited monthly.' }
+    ],
+    faqs: [
+      { question: 'How many times can a student take this benefit?', answer: 'Maximum 2 times (1 main course and 1 revision course).' }
+    ],
+    deadline: '2026-08-31',
+    lastUpdated: '2026-06-25',
+    contactHelpdesk: '011-23378418',
+    viewsCount: 31000,
+    bookmarkCount: 12900,
+    rating: 4.8
   }
 ];

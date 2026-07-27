@@ -1,17 +1,45 @@
 export type SchemeCategory = 
-  | 'Agriculture'
+  | 'Agriculture & Farming'
   | 'Education & Scholarships'
-  | 'Business & Startups'
-  | 'Women Empowerment'
+  | 'Business, MSME & Startups'
+  | 'Women & Child Welfare'
   | 'Healthcare & Insurance'
-  | 'Housing & Urban'
-  | 'Senior Citizens'
-  | 'Disability Support'
-  | 'Employment & Skill Development'
+  | 'Housing & Urban Infrastructure'
+  | 'Senior Citizens & Pensions'
+  | 'Disability & Divyangjan'
+  | 'Employment & Skill Training'
+  | 'Private & CSR Grants'
   | 'Financial & Social Security';
 
-export type SchemeType = 'Central Government' | 'State Government' | 'Private/CSR' | 'Public Sector Bank';
-export type BenefitType = 'Direct Cash Transfer' | 'Subsidy' | 'Subsidized Loan' | 'Grant' | 'Scholarship' | 'Tax Relief' | 'Free Service/Insurance';
+export type SchemeType = 
+  | 'Central Government' 
+  | 'State Government' 
+  | 'Private/CSR Trust' 
+  | 'Public Sector Bank'
+  | 'International Grant';
+
+export type BenefitType = 
+  | 'Direct Cash Transfer' 
+  | 'Subsidy' 
+  | 'Subsidized Loan' 
+  | 'Grant' 
+  | 'Scholarship' 
+  | 'Tax Relief' 
+  | 'Free Service/Insurance';
+
+export type LanguageCode = 
+  | 'en' // English
+  | 'hi' // Hindi
+  | 'mr' // Marathi
+  | 'gu' // Gujarati
+  | 'ta' // Tamil
+  | 'te' // Telugu
+  | 'kn' // Kannada
+  | 'ml' // Malayalam
+  | 'pa' // Punjabi
+  | 'bn' // Bengali
+  | 'or' // Odia
+  | 'as';// Assamese
 
 export interface Scheme {
   id: string;
@@ -28,7 +56,7 @@ export interface Scheme {
   officialWebsite: string;
   applicationLink: string;
   pdfGuideUrl?: string;
-  stateAvailability: string[]; // ['All India'] or ['Maharashtra', 'Delhi']
+  stateAvailability: string[]; // ['All India'] or specific state names
   
   // Eligibility criteria parameters
   eligibility: {
@@ -60,6 +88,7 @@ export interface Scheme {
   viewsCount: number;
   bookmarkCount: number;
   rating: number;
+  isFeatured?: boolean;
 }
 
 export interface UserProfile {
@@ -115,3 +144,43 @@ export interface NewsItem {
   url: string;
   isUrgent?: boolean;
 }
+
+export const ALL_INDIAN_STATES = [
+  'All India',
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chhattisgarh',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal',
+  'Andaman and Nicobar Islands',
+  'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu',
+  'Delhi (NCT)',
+  'Jammu and Kashmir',
+  'Ladakh',
+  'Lakshadweep',
+  'Puducherry'
+];

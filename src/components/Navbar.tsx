@@ -10,7 +10,6 @@ import {
   Eye, 
   Search, 
   User, 
-  ShieldAlert, 
   Menu, 
   X, 
   Bookmark, 
@@ -18,7 +17,9 @@ import {
   GraduationCap, 
   Newspaper, 
   LayoutDashboard,
-  Building2
+  Building2,
+  PhoneCall,
+  ShieldCheck
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -31,7 +32,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQuiz, openChat }) => {
   const { theme, toggleTheme, highContrast, toggleHighContrast } = useTheme();
   const { t } = useLanguage();
-  const { profile, isLoggedIn, userRole } = useAuth();
+  const { profile } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -45,25 +46,27 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
   ];
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-      {/* Top Accessibility Bar */}
-      <div className="bg-slate-900 text-slate-300 text-xs px-4 py-1 flex items-center justify-between">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+      {/* Top Accessibility & Helpline Bar */}
+      <div className="bg-slate-950 text-slate-300 text-xs px-4 py-1.5 flex items-center justify-between border-b border-slate-800">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1 font-semibold text-amber-400">
-            🇮🇳 Government of India & State Schemes Portal
+          <span className="flex items-center gap-1.5 font-bold text-amber-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            🇮🇳 Government of India & 36 States/UTs Portal
           </span>
-          <span className="hidden md:inline text-slate-400">| Toll Free Citizen Helpline: 1800-11-0001</span>
+          <span className="hidden lg:inline text-slate-400 font-medium">| Toll Free Helpline: 1800-11-0001 / 155261</span>
         </div>
+        
         <div className="flex items-center gap-3">
           <button 
             onClick={toggleHighContrast}
-            className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
-              highContrast ? 'bg-amber-400 text-slate-950 font-bold' : 'hover:bg-slate-800 text-slate-300'
+            className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-all ${
+              highContrast ? 'bg-amber-400 text-slate-950 font-black' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-300'
             }`}
             title="Toggle High Contrast Mode for Visual Accessibility"
           >
-            <Eye className="w-3 h-3" />
-            {highContrast ? 'High Contrast: ON' : 'High Contrast'}
+            <Eye className="w-3.5 h-3.5" />
+            {highContrast ? 'Contrast: ON' : 'High Contrast'}
           </button>
           <LanguageSwitcher />
         </div>
@@ -76,22 +79,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
           onClick={() => setActiveTab('home')}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-gov-orange via-brand-600 to-gov-green p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-gov-orange via-brand-600 to-gov-green p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-amber-400 animate-pulse" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
+              <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">
                 Scheme<span className="text-brand-600 dark:text-brand-400">Suggestor</span>
               </span>
-              <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-1.5 py-0.5 rounded border border-amber-500/20">
-                AI 2.0
+              <span className="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-amber-500/20">
+                AI 3.0
               </span>
             </div>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5 hidden sm:block">
-              Intelligent Scheme Discovery Platform
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold -mt-0.5 hidden sm:block">
+              Official Central, State & CSR Discovery Platform
             </p>
           </div>
         </div>
@@ -104,9 +107,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${
                   isActive 
-                    ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-semibold'
+                    ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20'
                     : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
                 }`}
               >
@@ -121,48 +124,48 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
           {/* AI Eligibility CTA */}
           <button
             onClick={openQuiz}
-            className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-brand-600 to-gov-green hover:from-brand-700 hover:to-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-md shadow-brand-600/20 hover:shadow-lg transition-all transform active:scale-95"
+            className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-brand-600 to-gov-green hover:from-brand-700 hover:to-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-md shadow-brand-600/20 hover:shadow-lg transition-all transform active:scale-95"
           >
             <Sparkles className="w-4 h-4 text-amber-300 animate-spin-slow" />
             <span>Check AI Eligibility</span>
           </button>
 
-          {/* AI Chatbot Assistant Launcher */}
+          {/* AI Assistant Launcher */}
           <button
             onClick={openChat}
-            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative"
-            title="Ask AI Assistant"
+            className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors relative"
+            title="Ask AI Scheme Assistant"
           >
-            <Sparkles className="w-5 h-5 text-amber-500" />
+            <Sparkles className="w-4 h-4" />
           </button>
 
           {/* Dark/Light Mode Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            title="Toggle Theme Mode"
+            className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            title="Toggle Light / Dark Mode"
           >
             {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-amber-400" />
+              <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-5 h-5 text-slate-700" />
+              <Moon className="w-4 h-4 text-slate-700" />
             )}
           </button>
 
           {/* User Profile Avatar */}
           <button
             onClick={() => setActiveTab('dashboard')}
-            className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="flex items-center gap-2 pl-2 pr-1.5 py-1 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <div className="w-7 h-7 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center">
               {profile.fullName.charAt(0)}
             </div>
-            <span className="text-xs font-semibold hidden md:inline text-slate-800 dark:text-slate-200">
+            <span className="text-xs font-bold hidden md:inline text-slate-800 dark:text-slate-200">
               {profile.fullName.split(' ')[0]}
             </span>
           </button>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300"
@@ -182,9 +185,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
                 setActiveTab(item.id);
                 setMobileMenuOpen(false);
               }}
-              className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium ${
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold ${
                 activeTab === item.id 
-                  ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold' 
+                  ? 'bg-brand-600 text-white' 
                   : 'text-slate-700 dark:text-slate-200'
               }`}
             >
@@ -197,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
                 openQuiz();
                 setMobileMenuOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 bg-brand-600 text-white py-2.5 rounded-xl font-bold text-sm shadow-md"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-gov-green text-white py-3 rounded-xl font-extrabold text-sm shadow-md"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               Check AI Eligibility Now

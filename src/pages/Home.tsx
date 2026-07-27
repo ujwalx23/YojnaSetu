@@ -10,7 +10,6 @@ import {
   ShieldCheck, 
   TrendingUp, 
   Users, 
-  Award, 
   CheckCircle2, 
   Briefcase, 
   GraduationCap, 
@@ -18,9 +17,8 @@ import {
   Home as HomeIcon, 
   Sprout, 
   Building2, 
-  Coins, 
-  HelpCircle,
-  Zap
+  Zap,
+  Award
 } from 'lucide-react';
 
 interface HomeProps {
@@ -34,14 +32,14 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
   const [searchQuery, setSearchQuery] = useState('');
 
   const categoriesList: { name: SchemeCategory; icon: any; count: number; color: string }[] = [
-    { name: 'Agriculture', icon: Sprout, count: 48, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-    { name: 'Business & Startups', icon: Briefcase, count: 62, color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
+    { name: 'Agriculture & Farming', icon: Sprout, count: 48, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+    { name: 'Business, MSME & Startups', icon: Briefcase, count: 62, color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
     { name: 'Education & Scholarships', icon: GraduationCap, count: 85, color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-    { name: 'Women Empowerment', icon: Heart, count: 39, color: 'text-pink-500 bg-pink-500/10 border-pink-500/20' },
+    { name: 'Women & Child Welfare', icon: Heart, count: 39, color: 'text-pink-500 bg-pink-500/10 border-pink-500/20' },
     { name: 'Healthcare & Insurance', icon: Heart, count: 41, color: 'text-red-500 bg-red-500/10 border-red-500/20' },
-    { name: 'Housing & Urban', icon: HomeIcon, count: 29, color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
-    { name: 'Senior Citizens', icon: Users, count: 22, color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
-    { name: 'Employment & Skill Development', icon: Building2, count: 54, color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
+    { name: 'Housing & Urban Infrastructure', icon: HomeIcon, count: 29, color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+    { name: 'Senior Citizens & Pensions', icon: Users, count: 22, color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
+    { name: 'Private & CSR Grants', icon: Award, count: 34, color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
   ];
 
   const filteredSchemes = searchQuery.trim()
@@ -61,9 +59,9 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
 
         <div className="relative max-w-4xl mx-auto text-center space-y-6">
           {/* Top Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-amber-300 shadow-inner">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-amber-300 shadow-inner">
             <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
-            <span>AI-Powered Government & Private Scheme Discovery</span>
+            <span>AI-Powered Central, State & CSR Scheme Discovery</span>
           </div>
 
           {/* Heading */}
@@ -74,8 +72,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Answer a few quick questions. Our AI engine instantly evaluates over 500+ Central and State Government schemes, loans, subsidies, and scholarships tailored to your exact profile.
+          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
+            Answer a few quick questions. Our AI engine instantly evaluates over 500+ Central, State Government, and Private CSR schemes tailored to your exact profile across all 36 Indian States & UTs.
           </p>
 
           {/* Search Bar Input */}
@@ -85,7 +83,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by scheme name, department, or benefit (e.g. Mudra, Loan, Farmer)..."
+              placeholder="Search by scheme name, state, department, or benefit..."
               className="flex-1 bg-transparent border-none outline-none text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium"
             />
             <button
@@ -116,8 +114,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-6 pt-6 text-xs font-semibold text-slate-400 border-t border-white/10">
             <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Official Data</span>
-            <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-amber-400" /> Instant Match Score</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-blue-400" /> Zero Dummy Data</span>
+            <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-amber-400" /> Instant AI Score</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-blue-400" /> All 36 States & UTs</span>
           </div>
         </div>
       </section>
@@ -138,8 +136,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
             <div className="text-xs text-slate-500 font-semibold mt-1">Citizens Assisted</div>
           </div>
           <div className="text-center p-4">
-            <div className="text-2xl sm:text-3xl font-black text-purple-600 dark:text-purple-400">28 States</div>
-            <div className="text-xs text-slate-500 font-semibold mt-1">State & Union Territories</div>
+            <div className="text-2xl sm:text-3xl font-black text-purple-600 dark:text-purple-400">36 States/UTs</div>
+            <div className="text-xs text-slate-500 font-semibold mt-1">State & CSR Coverage</div>
           </div>
         </div>
       </section>
@@ -189,7 +187,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectScheme, openQuiz, setActiveT
         <div className="flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white">Featured High-Impact Schemes</h2>
-            <p className="text-xs text-slate-500 mt-1">Popular government programs with maximum financial assistance</p>
+            <p className="text-xs text-slate-500 mt-1">Popular Central, State & CSR programs with maximum financial assistance</p>
           </div>
         </div>
 

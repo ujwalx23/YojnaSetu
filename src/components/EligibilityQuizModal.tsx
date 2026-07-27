@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { rankSchemesForProfile } from '../utils/aiEligibilityEngine';
 import { REAL_SCHEMES } from '../data/schemesData';
-import { SchemeMatchResult } from '../types';
+import { SchemeMatchResult, ALL_INDIAN_STATES } from '../types';
 import { 
   X, 
   Sparkles, 
@@ -29,11 +29,6 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
   const { profile, updateProfile } = useAuth();
   const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState({ ...profile });
-
-  const statesList = [
-    'Maharashtra', 'Delhi', 'Madhya Pradesh', 'Uttar Pradesh', 'Gujarat', 
-    'Karnataka', 'Tamil Nadu', 'Rajasthan', 'West Bengal', 'Bihar', 'Punjab', 'Kerala'
-  ];
 
   const handleDocToggle = (docName: string) => {
     setFormData(prev => {
@@ -65,9 +60,9 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
           
           <div className="flex items-center gap-2 mb-1">
             <Sparkles className="w-5 h-5 text-amber-400 animate-spin-slow" />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-300">AI Scheme Matcher</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-300">AI Scheme Matcher 3.0</span>
           </div>
-          <h2 className="text-xl font-black">Step {step} of 4: Discover Schemes You Qualify For</h2>
+          <h2 className="text-xl font-black">Step {step} of 4: Profile & Eligibility Wizard</h2>
           
           {/* Progress Bar */}
           <div className="w-full bg-white/20 h-1.5 rounded-full mt-4 overflow-hidden">
@@ -80,11 +75,11 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
 
         {/* Quiz Body Steps */}
         <div className="p-6 text-slate-800 dark:text-slate-200 space-y-6">
-          {/* Step 1: Basic Demographics */}
+          {/* Step 1: Demographics */}
           {step === 1 && (
             <div className="space-y-4">
               <h3 className="text-sm font-bold flex items-center gap-2 text-brand-600 dark:text-brand-400">
-                <User className="w-4 h-4" /> 1. Personal & Location Info
+                <User className="w-4 h-4" /> 1. Personal & State Domicile
               </h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -94,7 +89,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                     type="number"
                     value={formData.age}
                     onChange={e => setFormData({ ...formData, age: Number(e.target.value) })}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500 font-bold"
                   />
                 </div>
 
@@ -103,7 +98,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                   <select
                     value={formData.gender}
                     onChange={e => setFormData({ ...formData, gender: e.target.value as any })}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500 font-bold"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -111,14 +106,14 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">State Domicile</label>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">State Domicile (All 36 States & UTs)</label>
                   <select
                     value={formData.state}
                     onChange={e => setFormData({ ...formData, state: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500 font-bold"
                   >
-                    {statesList.map(s => <option key={s} value={s}>{s}</option>)}
+                    {ALL_INDIAN_STATES.filter(s => s !== 'All India').map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
 
@@ -154,17 +149,17 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
 
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Primary Occupation</label>
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Primary Profession</label>
                   <select
                     value={formData.occupation}
                     onChange={e => setFormData({ ...formData, occupation: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500 font-bold"
                   >
-                    <option value="Student">Student</option>
+                    <option value="Student">Student (School / College / PhD)</option>
                     <option value="Farmer">Farmer / Agricultural Worker</option>
                     <option value="Business Owner">Business Owner / MSME Entrepreneur</option>
-                    <option value="Startup Founder">Startup Founder</option>
-                    <option value="Self-Employed">Self-Employed / Artisan / Vendor</option>
+                    <option value="Startup Founder">Tech Startup Founder</option>
+                    <option value="Self-Employed">Self-Employed / Traditional Artisan / Vendor</option>
                     <option value="Unemployed">Unemployed / Job Seeker</option>
                   </select>
                 </div>
@@ -173,8 +168,8 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                   {[
                     { key: 'isFarmer', label: 'Farmer / Land Owner' },
                     { key: 'isBusinessOwner', label: 'Business / MSME Owner' },
-                    { key: 'isStartupFounder', label: 'Tech / DPIIT Startup Founder' },
-                    { key: 'isStudent', label: 'Currently Enrolled Student' },
+                    { key: 'isStartupFounder', label: 'DPIIT Startup Founder' },
+                    { key: 'isStudent', label: 'Enrolled Student' },
                   ].map((item) => (
                     <label key={item.key} className="flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
                       <input
@@ -191,7 +186,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
             </div>
           )}
 
-          {/* Step 3: Financial & Caste Category */}
+          {/* Step 3: Income & Social */}
           {step === 3 && (
             <div className="space-y-4">
               <h3 className="text-sm font-bold flex items-center gap-2 text-brand-600 dark:text-brand-400">
@@ -214,9 +209,9 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                     className="w-full accent-brand-600 cursor-pointer"
                   />
                   <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                    <span>₹30,000 (EWS)</span>
-                    <span>₹8,000,000 (General)</span>
-                    <span>₹25,000,000+</span>
+                    <span>₹30k (EWS)</span>
+                    <span>₹8 Lakh (Creamy Layer)</span>
+                    <span>₹25 Lakh+</span>
                   </div>
                 </div>
 
@@ -226,7 +221,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                     <select
                       value={formData.casteCategory}
                       onChange={e => setFormData({ ...formData, casteCategory: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-brand-500 font-bold"
                     >
                       <option value="General">General</option>
                       <option value="OBC">OBC (Other Backward Classes)</option>
@@ -245,7 +240,7 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
                         formData.hasDisability ? 'bg-amber-500/10 border-amber-500 text-amber-600' : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'
                       }`}
                     >
-                      {formData.hasDisability ? 'Yes (Divyangjan Disability >= 40%)' : 'No Disability'}
+                      {formData.hasDisability ? 'Yes (Divyangjan >= 40%)' : 'No Disability'}
                     </button>
                   </div>
                 </div>
@@ -253,11 +248,11 @@ export const EligibilityQuizModal: React.FC<EligibilityQuizModalProps> = ({ isOp
             </div>
           )}
 
-          {/* Step 4: Available Documents Checklist */}
+          {/* Step 4: Documents Checklist */}
           {step === 4 && (
             <div className="space-y-4">
               <h3 className="text-sm font-bold flex items-center gap-2 text-brand-600 dark:text-brand-400">
-                <FileCheck className="w-4 h-4" /> 4. Select Documents You Have Ready
+                <FileCheck className="w-4 h-4" /> 4. Select Available Documents
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1">
