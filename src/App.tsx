@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { SchemeDetailModal } from './components/SchemeDetailModal';
 import { EligibilityQuizModal } from './components/EligibilityQuizModal';
 import { ChatbotDrawer } from './components/ChatbotDrawer';
+import { MobileBottomNav } from './components/MobileBottomNav';
 
 import { Home } from './pages/Home';
 import { SchemesList } from './pages/SchemesList';
@@ -41,7 +42,7 @@ export const AppContent: React.FC = () => {
           openChat={() => setChatOpen(true)}
         />
 
-        <main className="pt-4">
+        <main className="pt-2 sm:pt-4">
           {activeTab === 'home' && (
             <Home
               onSelectScheme={(scheme) => setSelectedScheme(scheme)}
@@ -84,6 +85,13 @@ export const AppContent: React.FC = () => {
       </div>
 
       <Footer />
+
+      {/* Smartphone Bottom Navigation Bar */}
+      <MobileBottomNav
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        openQuiz={() => setQuizOpen(true)}
+      />
 
       {/* Modals & Drawers */}
       <SchemeDetailModal
