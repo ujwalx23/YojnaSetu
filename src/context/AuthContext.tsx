@@ -115,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       appliedDate: new Date().toISOString().split('T')[0],
       status: 'Submitted',
       applicationRefNumber: `APP-2026-${Math.floor(10000 + Math.random() * 90000)}`,
-      remarks: 'Application submitted via SchemeSuggestor official portal redirect.'
+      remarks: 'Application submitted via YojnaSetu official portal redirect.'
     };
     setApplications(prev => [newItem, ...prev]);
   };

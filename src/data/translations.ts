@@ -31,7 +31,7 @@ export interface TranslationDictionary {
 
 export const TRANSLATIONS: Record<LanguageCode, TranslationDictionary> = {
   en: {
-    appName: "SchemeSuggestor",
+    appName: "YojnaSetu",
     tagline: "Discover every government and private scheme you are eligible for",
     searchPlaceholder: "Search by scheme name, state, department, or benefit (e.g. Mudra, Tata Scholarship, PM Kisan)...",
     checkEligibilityBtn: "Check AI Eligibility Now",

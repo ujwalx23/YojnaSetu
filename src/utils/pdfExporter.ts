@@ -12,7 +12,7 @@ export function generateSchemePDF(scheme: Scheme, matchResult?: SchemeMatchResul
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(18);
-  doc.text('SchemeSuggestor Official Information Guide', 14, 18);
+  doc.text('YojnaSetu Official Information Guide', 14, 18);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text(`Generated on ${new Date().toLocaleDateString()} | Government & Private Scheme Portal`, 14, 26);

@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-amber-300" />
               </div>
-              <span className="font-extrabold text-lg text-white">SchemeSuggestor</span>
+              <span className="font-extrabold text-lg text-white">YojnaSetu</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               India\'s comprehensive AI-powered scheme discovery platform helping citizens, students, startups, farmers, and women access every government benefit they qualify for.
@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© 2026 SchemeSuggestor Platform. All scheme data synced from MyScheme.gov.in & official ministries.</p>
+          <p>© 2026 YojnaSetu Platform. All scheme data synced from MyScheme.gov.in & official ministries.</p>
           <div className="flex items-center gap-1 text-slate-400">
             <span>Built with precision for India</span>
             <Heart className="w-3.5 h-3.5 text-red-500 fill-current" />
