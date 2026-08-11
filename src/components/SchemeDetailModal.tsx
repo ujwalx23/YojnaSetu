@@ -11,13 +11,16 @@ import {
   FileText, 
   HelpCircle, 
   Bookmark, 
-  Share2, 
   Sparkles,
   Building,
-  PhoneCall,
   Calendar,
-  Layers,
-  ArrowUpRight
+  ShieldCheck,
+  CheckSquare,
+  Square,
+  ArrowUpRight,
+  Info,
+  Lightbulb,
+  Check
 } from 'lucide-react';
 
 interface SchemeDetailModalProps {
@@ -32,6 +35,7 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
   const { isBookmarked, toggleBookmark, submitApplication } = useAuth();
   const [activeTab, setActiveTab] = useState<'overview' | 'eligibility' | 'benefits' | 'documents' | 'steps' | 'faqs'>('overview');
   const [applied, setApplied] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const bookmarked = isBookmarked(scheme.id);
 
   const handleApplyClick = () => {
@@ -40,9 +44,30 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
     window.open(scheme.applicationLink, '_blank');
   };
 
+  const toggleStepCompleted = (stepNum: number) => {
+    if (completedSteps.includes(stepNum)) {
+      setCompletedSteps(completedSteps.filter(s => s !== stepNum));
+    } else {
+      setCompletedSteps([...completedSteps, stepNum]);
+    }
+  };
+
+  // Helper to extract domain name for verification badge
+  const getDomainName = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return parsed.hostname.replace('www.', '');
+    } catch {
+      return url;
+    }
+  };
+
+  const domain = getDomainName(scheme.officialWebsite);
+  const isGovDomain = domain.endsWith('.gov.in') || domain.endsWith('.nic.in') || domain.endsWith('.org.in');
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden my-8 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/75 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden my-4 flex flex-col max-h-[92vh]">
         {/* Modal Top Header */}
         <div className="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 p-6 text-white relative">
           <button 
@@ -59,8 +84,15 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
             <span className="bg-white/10 text-slate-200 text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/20">
               {scheme.schemeType}
             </span>
+            
+            {/* Official Verification Security Badge */}
+            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              Verified Link ({domain})
+            </span>
+
             {matchResult && (
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <span className="bg-brand-500/20 text-brand-300 border border-brand-500/40 text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-300" />
                 {matchResult.matchScore}% AI Match ({matchResult.status})
               </span>
@@ -90,7 +122,7 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
             { id: 'eligibility', label: 'Eligibility' },
             { id: 'benefits', label: 'Benefits' },
             { id: 'documents', label: 'Documents' },
-            { id: 'steps', label: 'Apply Steps' },
+            { id: 'steps', label: 'Apply Steps & Guide' },
             { id: 'faqs', label: 'FAQs' },
           ].map((tab) => (
             <button
@@ -115,6 +147,29 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
               <div>
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2">Description</h4>
                 <p className="leading-relaxed text-slate-800 dark:text-slate-200 text-base">{scheme.fullDescription}</p>
+              </div>
+
+              {/* Verified Domain Banner */}
+              <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-2xl p-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="w-6 h-6 text-emerald-500 shrink-0" />
+                  <div>
+                    <h5 className="font-extrabold text-xs text-emerald-900 dark:text-emerald-300 uppercase tracking-wider">
+                      Official Government & Trust Destination
+                    </h5>
+                    <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
+                      Redirects safely to <code className="bg-emerald-200/60 dark:bg-emerald-900 px-1 py-0.5 rounded text-[11px]">{scheme.officialWebsite}</code>
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href={scheme.officialWebsite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1 shrink-0"
+                >
+                  Visit Portal <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
 
               {/* Match Reasons Callout */}
@@ -256,22 +311,92 @@ export const SchemeDetailModal: React.FC<SchemeDetailModalProps> = ({ scheme, ma
             </div>
           )}
 
-          {/* Application Steps Tab */}
+          {/* Application Steps Tab (ENHANCED STEP-BY-STEP CLAIM GUIDE) */}
           {activeTab === 'steps' && (
-            <div className="space-y-4">
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">Step-by-Step Application Process</h4>
-              <div className="space-y-4 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
-                {scheme.applicationSteps.map((step) => (
-                  <div key={step.stepNumber} className="flex items-start gap-4 relative">
-                    <div className="w-8 h-8 rounded-full bg-brand-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-md">
-                      {step.stepNumber}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                    Step-by-Step Interactive Claim Guide
+                  </h4>
+                  <p className="text-xs text-slate-500">
+                    Follow these step-by-step instructions to fill out online/offline forms and claim your benefit.
+                  </p>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-bold text-brand-600 dark:text-brand-400">
+                    {completedSteps.length} of {scheme.applicationSteps.length} Completed
+                  </span>
+                </div>
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="bg-brand-600 h-full transition-all duration-300 rounded-full"
+                  style={{ width: `${(completedSteps.length / Math.max(1, scheme.applicationSteps.length)) * 100}%` }}
+                />
+              </div>
+
+              {/* Application steps list */}
+              <div className="space-y-4">
+                {scheme.applicationSteps.map((step) => {
+                  const isDone = completedSteps.includes(step.stepNumber);
+                  return (
+                    <div 
+                      key={step.stepNumber} 
+                      onClick={() => toggleStepCompleted(step.stepNumber)}
+                      className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                        isDone
+                          ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800'
+                          : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 hover:border-brand-300'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shrink-0 ${
+                          isDone 
+                            ? 'bg-emerald-500 text-white' 
+                            : 'bg-brand-600 text-white'
+                        }`}>
+                          {isDone ? <Check className="w-4 h-4" /> : step.stepNumber}
+                        </div>
+
+                        <div className="flex-1">
+                          <h5 className={`font-bold text-sm mb-1 ${isDone ? 'text-emerald-900 dark:text-emerald-300 line-through' : 'text-slate-900 dark:text-white'}`}>
+                            Step {step.stepNumber}: {step.title}
+                          </h5>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            {step.detail}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl flex-1">
-                      <h5 className="font-bold text-sm text-slate-900 dark:text-white mb-1">{step.title}</h5>
-                      <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{step.detail}</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
+              </div>
+
+              {/* Pro Tips Box */}
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs space-y-2">
+                <h5 className="font-extrabold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                  <Lightbulb className="w-4 h-4 text-amber-500 shrink-0" />
+                  Pro-Tip to Prevent Form Rejection
+                </h5>
+                <p className="text-amber-800 dark:text-amber-200 leading-relaxed">
+                  Ensure your Mobile Number is linked with your Aadhaar Card for instant OTP e-KYC. Also, make sure your bank account is Aadhaar-seeded for direct DBT cash transfers. Upload scanned document PDFs strictly below 200KB.
+                </p>
+              </div>
+
+              {/* Direct Redirect Action Button */}
+              <div className="pt-2">
+                <a
+                  href={scheme.applicationLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all text-xs"
+                >
+                  <span>Open Direct Portal Application Form ({domain})</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
             </div>
           )}

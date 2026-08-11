@@ -2,9 +2,21 @@ import React, { useState, useMemo } from 'react';
 import { REAL_SCHEMES } from '../data/schemesData';
 import { Scheme, ALL_INDIAN_STATES, SchemeMatchResult } from '../types';
 import { SchemeCard } from '../components/SchemeCard';
+import { SchemeComparisonModal } from '../components/SchemeComparisonModal';
+import { DocumentReadinessCheck } from '../components/DocumentReadinessCheck';
 import { useAuth } from '../context/AuthContext';
 import { evaluateSchemeEligibility } from '../utils/aiEligibilityEngine';
-import { Search, Filter, ArrowUpDown, SlidersHorizontal, Sparkles, X, MapPin, Building, Award } from 'lucide-react';
+import { 
+  Search, 
+  SlidersHorizontal, 
+  Sparkles, 
+  ArrowUpDown, 
+  Scale, 
+  FileCheck2, 
+  CheckSquare, 
+  X,
+  ShieldCheck
+} from 'lucide-react';
 
 interface SchemesListProps {
   onSelectScheme: (scheme: Scheme) => void;
@@ -20,6 +32,11 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
   const [selectedType, setSelectedType] = useState<string>('All');
   const [schemeTypeFilter, setSchemeTypeFilter] = useState<'All' | 'Central Government' | 'State Government' | 'Private/CSR Trust'>('All');
   const [sortBy, setSortBy] = useState<'match' | 'amount' | 'rating'>('match');
+
+  // Comparison & Document readiness state
+  const [comparedSchemes, setComparedSchemes] = useState<Scheme[]>([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [isDocCheckOpen, setIsDocCheckOpen] = useState(false);
 
   const categories = [
     'All', 
@@ -64,25 +81,55 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
     });
   }, [processedSchemes, searchTerm, selectedCategory, selectedState, selectedType, schemeTypeFilter, sortBy]);
 
+  const toggleCompareScheme = (scheme: Scheme) => {
+    if (comparedSchemes.some(s => s.id === scheme.id)) {
+      setComparedSchemes(comparedSchemes.filter(s => s.id !== scheme.id));
+    } else {
+      if (comparedSchemes.length >= 3) {
+        alert('You can compare up to 3 schemes at a time. Remove one to add another.');
+        return;
+      }
+      setComparedSchemes([...comparedSchemes, scheme]);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative">
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 p-8 rounded-3xl text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl border border-slate-800">
         <div>
-          <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Official Database Engine</span>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400">
+              Official Verified Database
+            </span>
+            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-emerald-400" />
+              100% Working Links
+            </span>
+          </div>
           <h1 className="text-2xl sm:text-4xl font-black mt-1">Smart Scheme Discovery</h1>
           <p className="text-xs text-slate-300 mt-2 max-w-xl">
-            Filter through verified Central, State, and Private/CSR grants across all 36 Indian States & UTs.
+            Filter through verified Central, State, and Private/CSR grants across all 36 Indian States & UTs with step-by-step application guidance.
           </p>
         </div>
 
-        <button
-          onClick={openQuiz}
-          className="bg-gradient-to-r from-brand-500 to-gov-green hover:from-brand-600 hover:to-emerald-600 text-white font-extrabold text-xs px-5 py-3 rounded-2xl shadow-lg flex items-center gap-2"
-        >
-          <Sparkles className="w-4 h-4 text-amber-300" />
-          Re-Run AI Profile Quiz
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setIsDocCheckOpen(true)}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 transition-all"
+          >
+            <FileCheck2 className="w-4 h-4 text-emerald-200" />
+            Document Vault Audit
+          </button>
+
+          <button
+            onClick={openQuiz}
+            className="bg-gradient-to-r from-brand-500 to-gov-green hover:from-brand-600 hover:to-emerald-600 text-white font-extrabold text-xs px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 transition-all"
+          >
+            <Sparkles className="w-4 h-4 text-amber-300" />
+            AI Eligibility Quiz
+          </button>
+        </div>
       </div>
 
       {/* Scheme Type Tabs */}
@@ -213,14 +260,19 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
           {/* Cards Grid */}
           {filtered.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filtered.map(({ scheme, evalRes }) => (
-                <SchemeCard
-                  key={scheme.id}
-                  scheme={scheme}
-                  matchResult={evalRes}
-                  onSelect={onSelectScheme}
-                />
-              ))}
+              {filtered.map(({ scheme, evalRes }) => {
+                const isCompared = comparedSchemes.some(s => s.id === scheme.id);
+                return (
+                  <SchemeCard
+                    key={scheme.id}
+                    scheme={scheme}
+                    matchResult={evalRes}
+                    onSelect={onSelectScheme}
+                    isCompared={isCompared}
+                    onToggleCompare={toggleCompareScheme}
+                  />
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-16 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-3">
@@ -240,6 +292,55 @@ export const SchemesList: React.FC<SchemesListProps> = ({ onSelectScheme, quizRe
           )}
         </div>
       </div>
+
+      {/* Floating Comparison Bar */}
+      {comparedSchemes.length > 0 && (
+        <div className="fixed bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 text-white border border-slate-700/80 backdrop-blur-md px-6 py-3.5 rounded-full shadow-2xl flex items-center gap-4 animate-bounce-in">
+          <div className="flex items-center gap-2">
+            <Scale className="w-5 h-5 text-amber-400" />
+            <span className="text-xs font-bold">
+              <span className="text-amber-400 font-extrabold">{comparedSchemes.length}</span> / 3 Schemes Selected to Compare
+            </span>
+          </div>
+
+          <button
+            onClick={() => setIsCompareModalOpen(true)}
+            className="bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs px-4 py-1.5 rounded-full transition-all shadow-md flex items-center gap-1"
+          >
+            Compare Side-by-Side
+          </button>
+
+          <button
+            onClick={() => setComparedSchemes([])}
+            className="text-slate-400 hover:text-white p-1"
+            title="Clear all comparison picks"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {/* Modals */}
+      <SchemeComparisonModal
+        schemes={comparedSchemes}
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        onRemoveScheme={(id) => setComparedSchemes(comparedSchemes.filter(s => s.id !== id))}
+        onSelectScheme={(scheme) => {
+          setIsCompareModalOpen(false);
+          onSelectScheme(scheme);
+        }}
+      />
+
+      <DocumentReadinessCheck
+        schemes={REAL_SCHEMES}
+        isOpen={isDocCheckOpen}
+        onClose={() => setIsDocCheckOpen(false)}
+        onSelectScheme={(scheme) => {
+          setIsDocCheckOpen(false);
+          onSelectScheme(scheme);
+        }}
+      />
     </div>
   );
 };

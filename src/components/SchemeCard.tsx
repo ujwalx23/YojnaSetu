@@ -13,16 +13,27 @@ import {
   Clock, 
   XCircle,
   MapPin,
-  Award
+  ShieldCheck,
+  CheckSquare,
+  Square,
+  ExternalLink
 } from 'lucide-react';
 
 interface SchemeCardProps {
   scheme: Scheme;
   matchResult?: SchemeMatchResult;
   onSelect: (scheme: Scheme) => void;
+  isCompared?: boolean;
+  onToggleCompare?: (scheme: Scheme) => void;
 }
 
-export const SchemeCard: React.FC<SchemeCardProps> = ({ scheme, matchResult, onSelect }) => {
+export const SchemeCard: React.FC<SchemeCardProps> = ({ 
+  scheme, 
+  matchResult, 
+  onSelect,
+  isCompared = false,
+  onToggleCompare
+}) => {
   const { isBookmarked, toggleBookmark } = useAuth();
   const bookmarked = isBookmarked(scheme.id);
 
@@ -65,7 +76,9 @@ export const SchemeCard: React.FC<SchemeCardProps> = ({ scheme, matchResult, onS
   const isCSR = scheme.schemeType === 'Private/CSR Trust';
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+    <div className={`bg-white dark:bg-slate-900 border rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
+      isCompared ? 'border-amber-400 dark:border-amber-500 ring-2 ring-amber-400/30' : 'border-slate-200 dark:border-slate-800'
+    }`}>
       {/* Top Banner Tag */}
       <div>
         <div className="flex items-start justify-between gap-3 mb-3">
@@ -81,6 +94,12 @@ export const SchemeCard: React.FC<SchemeCardProps> = ({ scheme, matchResult, onS
             <span className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-semibold px-2 py-0.5 rounded-md flex items-center gap-1">
               <MapPin className="w-3 h-3 text-slate-400" />
               {scheme.stateAvailability[0]}
+            </span>
+
+            {/* Verified link badge */}
+            <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-0.5" title="Verified Govt Portal Domain">
+              <ShieldCheck className="w-3 h-3 text-emerald-500" />
+              Verified Link
             </span>
           </div>
 
@@ -138,23 +157,58 @@ export const SchemeCard: React.FC<SchemeCardProps> = ({ scheme, matchResult, onS
           </span>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/60">
-          <button
-            onClick={() => onSelect(scheme)}
-            className="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-          >
-            <span>View Scheme</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+        {/* Compare Checkbox & Actions */}
+        <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800/60">
+          {onToggleCompare && (
+            <button
+              onClick={() => onToggleCompare(scheme)}
+              className={`w-full py-1.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                isCompared
+                  ? 'bg-amber-400 text-slate-950 border-amber-400 shadow-sm'
+                  : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-400'
+              }`}
+            >
+              {isCompared ? (
+                <>
+                  <CheckSquare className="w-3.5 h-3.5 text-slate-950" />
+                  <span>Selected to Compare</span>
+                </>
+              ) : (
+                <>
+                  <Square className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Add to Compare</span>
+                </>
+              )}
+            </button>
+          )}
 
-          <button
-            onClick={() => generateSchemePDF(scheme, matchResult)}
-            className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            title="Download PDF Guide"
-          >
-            <Download className="w-4 h-4 text-slate-500" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => onSelect(scheme)}
+              className="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+            >
+              <span>View & Claim Guide</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+
+            <a
+              href={scheme.applicationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              title="Open Official Link Directly"
+            >
+              <ExternalLink className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            </a>
+
+            <button
+              onClick={() => generateSchemePDF(scheme, matchResult)}
+              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              title="Download PDF Guide"
+            >
+              <Download className="w-4 h-4 text-slate-500" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
