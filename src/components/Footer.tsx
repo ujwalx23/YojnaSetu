@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, PhoneCall, ExternalLink, Heart } from 'lucide-react';
+import { Sparkles, ShieldCheck, PhoneCall, ExternalLink, Heart, MessageSquare } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -15,8 +15,19 @@ export const Footer: React.FC = () => {
               <span className="font-extrabold text-lg text-white">YojnaSetu</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              India\'s comprehensive AI-powered scheme discovery platform helping citizens, students, startups, farmers, and women access every government benefit they qualify for.
+              India's comprehensive AI-powered scheme discovery platform helping citizens, students, startups, farmers, and women access every government benefit they qualify for.
             </p>
+
+            <a
+              href="https://t.me/YojnaSetu_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold text-sky-400 bg-sky-950/70 border border-sky-800/60 px-3 py-1.5 rounded-lg hover:bg-sky-900 transition-colors"
+            >
+              <MessageSquare className="w-4 h-4 text-sky-400" />
+              Telegram Bot (@YojnaSetu_bot)
+            </a>
+
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-lg w-fit">
               <ShieldCheck className="w-4 h-4" />
               100% Verified Official Portals
