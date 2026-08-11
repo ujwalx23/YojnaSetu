@@ -9,8 +9,8 @@
     }
   ],
   "start_url": "/",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#1B3B6F",
+  "theme_color": "#1B3B6F",
   "display": "standalone",
   "orientation": "portrait",
   "description": "Discover every government and private scheme, scholarship, MSME loan, and subsidy you qualify for using AI eligibility engine."

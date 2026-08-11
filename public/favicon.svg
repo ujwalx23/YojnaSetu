@@ -1,26 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF671F" />
-      <stop offset="50%" stop-color="#1e3a8a" />
-      <stop offset="100%" stop-color="#046A38" />
+    <linearGradient id="yGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2756B5" />
+      <stop offset="100%" stop-color="#1B3B6F" />
     </linearGradient>
-    <linearGradient id="sparkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FCD34D" />
-      <stop offset="100%" stop-color="#F59E0B" />
+    <linearGradient id="sGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C1A" />
+      <stop offset="100%" stop-color="#F57C00" />
+    </linearGradient>
+    <linearGradient id="bridgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2756B5" />
+      <stop offset="100%" stop-color="#F57C00" />
     </linearGradient>
   </defs>
-  
-  <!-- Background Shield -->
-  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
-  
-  <!-- Outer Ring -->
-  <circle cx="256" cy="256" r="200" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-opacity="0.2" />
-  
-  <!-- Bridge Arch Symbol (Setu) -->
-  <path d="M 120 340 C 180 220, 332 220, 392 340" fill="none" stroke="url(#sparkGrad)" stroke-width="32" stroke-linecap="round" />
-  <path d="M 160 350 C 210 270, 302 270, 352 350" fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.8" />
-  
-  <!-- Central AI Spark Star -->
-  <path d="M 256 120 L 268 188 L 336 200 L 268 212 L 256 280 L 244 212 L 176 200 L 244 188 Z" fill="url(#sparkGrad)" />
+
+  <!-- White background -->
+  <rect width="512" height="512" rx="80" fill="#ffffff" />
+
+  <!-- Letter Y (navy blue) -->
+  <!-- Left arm of Y -->
+  <path d="M 60 80 L 180 240 L 180 380 L 220 380 L 220 240 L 340 80 L 295 80 L 200 210 L 105 80 Z" fill="url(#yGrad)" />
+
+  <!-- Letter S (vivid orange) - right side -->
+  <!-- Top arc of S -->
+  <path d="M 370 90 Q 460 90 460 165 Q 460 230 370 240 Q 290 252 290 310 Q 290 390 390 390 Q 450 390 470 360 L 438 340 Q 420 368 390 368 Q 330 368 330 310 Q 330 270 410 260 Q 490 250 490 165 Q 490 68 370 68 Q 305 68 275 102 L 300 128 Q 325 90 370 90 Z" fill="url(#sGrad)" />
+
+  <!-- Bridge arc (connecting Y and S) -->
+  <path d="M 175 300 Q 255 240 335 300" fill="none" stroke="url(#bridgeGrad)" stroke-width="22" stroke-linecap="round" />
+  <!-- Bridge road lines (pillars) -->
+  <line x1="215" y1="283" x2="215" y2="302" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.9" />
+  <line x1="240" y1="276" x2="240" y2="297" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.9" />
+  <line x1="265" y1="272" x2="265" y2="294" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.9" />
+  <line x1="290" y1="276" x2="290" y2="297" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.9" />
 </svg>

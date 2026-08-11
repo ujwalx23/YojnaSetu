@@ -1,7 +1,15 @@
 // Silent Backend Telegram Notification Service
-// Sends lead alerts (when user enters email/phone in 'Alert Me' section) directly to Telegram Bot API
+// Sends lead alerts (email/phone from 'Alert Me' section) directly to admin via Telegram Bot API
 
 const BOT_TOKEN = '8570058967:AAHZl1vRVH9L99xkYkF6RViZ-ZlFRWvUOfk';
+
+// ─── ADMIN CHAT IDS ───────────────────────────────────────────────────────────
+// To get your personal chat ID:
+//   1. Message your bot at t.me/YojnaSetu_bot  (send /start)
+//   2. Open https://api.telegram.org/bot8570058967:AAHZl1vRVH9L99xkYkF6RViZ-ZlFRWvUOfk/getUpdates
+//   3. Look for result[].message.chat.id  — copy that number and paste below
+// Replace 0 with your actual chat ID after the above steps.
+const ADMIN_CHAT_IDS: number[] = []; // e.g. [123456789]
 
 interface LeadData {
   contact: string;
@@ -11,7 +19,14 @@ interface LeadData {
 
 export async function sendTelegramLeadNotification(data: LeadData): Promise<boolean> {
   try {
-    // 1. Try serverless backend endpoint first if available
+    const messageText =
+      `🚨 <b>NEW YOJNASETU LEAD ALERT</b> 🚨\n\n` +
+      `👤 <b>User Contact:</b> <code>${data.contact}</code>\n` +
+      `📌 <b>Source:</b> ${data.source || 'Website Form'}\n` +
+      `📝 <b>Details:</b> ${data.details || 'User requested scheme updates & alerts'}\n` +
+      `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-IN')}`;
+
+    // 1. Try serverless backend endpoint first (works in Vercel production)
     try {
       const apiRes = await fetch('/api/notify', {
         method: 'POST',
@@ -20,32 +35,32 @@ export async function sendTelegramLeadNotification(data: LeadData): Promise<bool
       });
       if (apiRes.ok) return true;
     } catch {
-      // Fallback to direct client call if running locally
+      // Fallback: use direct Telegram API call
     }
 
-    // 2. Direct Telegram API call
-    const messageText = `🚨 <b>NEW YOJNASETU LEAD ALERT</b> 🚨\n\n` +
-      `👤 <b>User Contact:</b> <code>${data.contact}</code>\n` +
-      `📌 <b>Source:</b> ${data.source || 'Website Form'}\n` +
-      `📝 <b>Details:</b> ${data.details || 'User requested scheme updates & alerts'}\n` +
-      `⏰ <b>Timestamp:</b> ${new Date().toLocaleString('en-IN')}`;
+    // 2. Collect admin chat IDs: start from hardcoded list
+    const targetChatIds = new Set<number>(ADMIN_CHAT_IDS);
 
-    // Get updates to find active chat ID if needed, or broadcast to last active chat
-    const updatesRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`);
-    const updatesData = await updatesRes.json();
-
-    const activeChatIds = new Set<number>();
-    if (updatesData.ok && Array.isArray(updatesData.result)) {
-      updatesData.result.forEach((u: any) => {
-        if (u.message?.chat?.id) {
-          activeChatIds.add(u.message.chat.id);
-        }
-      });
+    // 3. Also fetch recent /getUpdates to auto-discover any chat that messaged the bot
+    try {
+      const updatesRes = await fetch(
+        `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`
+      );
+      const updatesData = await updatesRes.json();
+      if (updatesData.ok && Array.isArray(updatesData.result)) {
+        updatesData.result.forEach((u: any) => {
+          if (u.message?.chat?.id) {
+            targetChatIds.add(u.message.chat.id);
+          }
+        });
+      }
+    } catch {
+      // getUpdates failed — use only hardcoded IDs
     }
 
-    // If active chats found, send notification to all admin chat IDs
-    if (activeChatIds.size > 0) {
-      for (const chatId of activeChatIds) {
+    // 4. Send notification to all admin chat IDs
+    if (targetChatIds.size > 0) {
+      for (const chatId of targetChatIds) {
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

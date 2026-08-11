@@ -4,52 +4,113 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans;
+    @apply bg-slate-50 text-slate-900 dark:bg-[#060e1a] dark:text-slate-100 font-sans;
   }
 }
 
-/* Custom Glassmorphism & High Contrast Overrides */
-.high-contrast {
-  filter: contrast(130%) brightness(95%);
+/* ── YojnaSetu Brand Variables ───────────────────────────────── */
+:root {
+  --navy:       #1B3B6F;
+  --navy-dark:  #0f2347;
+  --orange:     #F57C00;
+  --orange-lt:  #FF8C1A;
+  --white:      #FFFFFF;
 }
 
+/* ── High Contrast Mode ──────────────────────────────────────── */
+.high-contrast { filter: contrast(130%) brightness(95%); }
 .high-contrast body {
   background-color: #000000 !important;
   color: #ffffff !important;
 }
 
+/* ── Animations ──────────────────────────────────────────────── */
 @keyframes spinSlow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spinSlow 8s linear infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(245,124,0,0.12) 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
 }
 
-.animate-spin-slow {
-  animation: spinSlow 8s linear infinite;
+@keyframes navyPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(27,59,111,0.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(27,59,111,0); }
+}
+.animate-navy-pulse { animation: navyPulse 2s ease-in-out infinite; }
+
+@keyframes orangeGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(245,124,0,0.4); }
+  50%       { box-shadow: 0 0 20px rgba(245,124,0,0.7); }
+}
+.animate-orange-glow { animation: orangeGlow 2s ease-in-out infinite; }
+
+/* ── Gradient Utilities ──────────────────────────────────────── */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #1B3B6F 0%, #0f2347 60%, #162f58 100%);
+}
+.bg-accent-gradient {
+  background: linear-gradient(135deg, #F57C00 0%, #FF8C1A 100%);
+}
+.text-gradient-brand {
+  background: linear-gradient(90deg, #1B3B6F, #2756B5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-accent {
+  background: linear-gradient(90deg, #F57C00, #FF8C1A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ── Glass Cards ─────────────────────────────────────────────── */
+.glass-navy {
+  background: rgba(27, 59, 111, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(27, 59, 111, 0.25);
+}
+.glass-orange {
+  background: rgba(245, 124, 0, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 124, 0, 0.2);
+}
+.dark .glass-navy {
+  background: rgba(27, 59, 111, 0.25);
+  border-color: rgba(27, 59, 111, 0.45);
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.05);
+/* ── Scheme Card Hover Effect ────────────────────────────────── */
+.scheme-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.scheme-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(245, 124, 0, 0.18), 0 2px 8px rgba(27, 59, 111, 0.12);
 }
 
-.dark ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
-}
+/* ── Custom Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: rgba(27, 59, 111, 0.05); }
+::-webkit-scrollbar-thumb { background: #1B3B6F; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #F57C00; }
+.dark ::-webkit-scrollbar-track { background: rgba(6, 14, 26, 0.5); }
+.dark ::-webkit-scrollbar-thumb { background: #2756B5; }
 
-::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 4px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
+/* ── Selection Color ─────────────────────────────────────────── */
+::selection { background: #F57C00; color: #ffffff; }

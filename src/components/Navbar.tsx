@@ -41,22 +41,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
   ];
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-white/95 dark:bg-[#060e1a]/95 border-b border-slate-200/60 dark:border-[#1B3B6F]/40 transition-colors duration-300 shadow-sm">
       {/* Top Accessibility & Helpline Bar */}
-      <div className="bg-slate-950 text-slate-300 text-xs px-4 py-1.5 flex items-center justify-between border-b border-slate-800">
+      <div className="bg-[#1B3B6F] text-blue-100 text-xs px-4 py-1.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 font-bold text-amber-400">
+          <span className="flex items-center gap-1.5 font-bold text-[#FF8C1A]">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            🇮🇳 Government of India & 36 States/UTs Portal
+            🇮🇳 Government of India &amp; 36 States/UTs Portal
           </span>
-          <span className="hidden lg:inline text-slate-400 font-medium">| Toll Free Helpline: 1800-11-0001 / 155261</span>
+          <span className="hidden lg:inline text-blue-200 font-medium">| Toll Free Helpline: 1800-11-0001 / 155261</span>
         </div>
         
         <div className="flex items-center gap-3">
           <button 
             onClick={toggleHighContrast}
             className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-all ${
-              highContrast ? 'bg-amber-400 text-slate-950 font-black' : 'bg-slate-800/80 hover:bg-slate-800 text-slate-300'
+              highContrast ? 'bg-[#F57C00] text-white font-black' : 'bg-white/10 hover:bg-white/20 text-blue-100'
             }`}
             title="Toggle High Contrast Mode for Visual Accessibility"
           >
@@ -74,15 +74,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
           onClick={() => setActiveTab('home')}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-gov-orange via-brand-600 to-gov-green p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-amber-400 animate-pulse" />
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#2756B5] to-[#1B3B6F] p-0.5 shadow-md shadow-[#1B3B6F]/40 group-hover:scale-105 transition-transform">
+            <div className="w-full h-full bg-[#1B3B6F] rounded-[14px] flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-[#F57C00] animate-pulse" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">
-                Yojna<span className="text-brand-600 dark:text-brand-400">Setu</span>
+              <span className="font-black text-xl tracking-tight text-[#1B3B6F] dark:text-white">
+                Yojna<span className="text-[#F57C00]">Setu</span>
               </span>
             </div>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold -mt-0.5 hidden sm:block">
@@ -101,8 +101,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
                 onClick={() => setActiveTab(item.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${
                   isActive 
-                    ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+                    ? 'bg-[#1B3B6F] text-white shadow-md shadow-[#1B3B6F]/30'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-[#1B3B6F] dark:hover:text-[#FF8C1A] hover:bg-[#1B3B6F]/8 dark:hover:bg-[#1B3B6F]/30'
                 }`}
               >
                 {item.label}
@@ -116,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
           {/* AI Eligibility CTA */}
           <button
             onClick={openQuiz}
-            className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-brand-600 to-gov-green hover:from-brand-700 hover:to-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-md shadow-brand-600/20 hover:shadow-lg transition-all transform active:scale-95"
+            className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-[#F57C00] to-[#FF8C1A] hover:from-[#e06e00] hover:to-[#F57C00] text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-md shadow-[#F57C00]/30 hover:shadow-lg transition-all transform active:scale-95"
           >
             <Sparkles className="w-4 h-4 text-amber-300 animate-spin-slow" />
             <span>Check AI Eligibility</span>
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
           {/* AI Assistant Launcher */}
           <button
             onClick={openChat}
-            className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors relative"
+            className="p-2.5 rounded-xl bg-[#F57C00]/10 hover:bg-[#F57C00]/20 text-[#F57C00] dark:text-[#FF8C1A] transition-colors relative"
             title="Ask AI Scheme Assistant"
           >
             <Sparkles className="w-4 h-4" />
@@ -149,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
             onClick={() => setActiveTab('dashboard')}
             className="flex items-center gap-2 pl-2 pr-1.5 py-1 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
-            <div className="w-7 h-7 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full bg-[#1B3B6F] text-white font-bold text-xs flex items-center justify-center">
               {profile.fullName.charAt(0)}
             </div>
             <span className="text-xs font-bold hidden md:inline text-slate-800 dark:text-slate-200">
@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
               }}
               className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold ${
                 activeTab === item.id 
-                  ? 'bg-brand-600 text-white' 
+                  ? 'bg-[#1B3B6F] text-white' 
                   : 'text-slate-700 dark:text-slate-200'
               }`}
             >
@@ -193,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
                 openQuiz();
                 setMobileMenuOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-gov-green text-white py-3 rounded-xl font-extrabold text-sm shadow-md"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#F57C00] to-[#FF8C1A] text-white py-3 rounded-xl font-extrabold text-sm shadow-md shadow-[#F57C00]/30"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               Check AI Eligibility Now
