@@ -14,8 +14,7 @@ import {
   GraduationCap, 
   Newspaper, 
   LayoutDashboard,
-  Building2,
-  MessageSquare
+  Building2
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -54,16 +53,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
         </div>
         
         <div className="flex items-center gap-3">
-          <a
-            href="https://t.me/YojnaSetu_bot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1.5 text-[11px] font-extrabold text-sky-400 hover:text-sky-300 transition-colors"
-          >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>Telegram Bot (@YojnaSetu_bot)</span>
-          </a>
-
           <button 
             onClick={toggleHighContrast}
             className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold transition-all ${
@@ -197,16 +186,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openQui
               {item.label}
             </button>
           ))}
-          
-          <a
-            href="https://t.me/YojnaSetu_bot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl font-extrabold text-sm shadow-md"
-          >
-            <MessageSquare className="w-4 h-4" />
-            Open Telegram Bot (@YojnaSetu_bot)
-          </a>
 
           <div className="pt-2">
             <button

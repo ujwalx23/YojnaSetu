@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/api/telegram", "destination": "/api/telegram.ts" },
+    { "source": "/api/notify", "destination": "/api/notify.ts" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

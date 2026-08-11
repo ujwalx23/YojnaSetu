@@ -3,17 +3,10 @@ import { REAL_SCHEMES } from '../data/schemesData';
 import { Scheme } from '../types';
 import { 
   X, 
-  Sparkles, 
   Send, 
   Bot, 
   User, 
-  ArrowUpRight, 
-  CheckCircle2, 
-  ExternalLink,
-  MessageSquare,
-  ShieldCheck,
-  Zap,
-  Info
+  ArrowUpRight
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -21,7 +14,6 @@ interface ChatMessage {
   sender: 'ai' | 'user';
   text: string;
   matchedSchemes?: Scheme[];
-  actionLink?: { label: string; url: string };
 }
 
 interface ChatbotDrawerProps {
@@ -39,15 +31,10 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
       id: 'msg-1',
       sender: 'ai',
       text: 'Namaste! I am your YojnaSetu AI Scheme Assistant. Ask me anything about Indian central/state schemes, eligibility requirements, Mudra loans, scholarships, or document lists.',
-      actionLink: {
-        label: 'Chat on Telegram Bot (@YojnaSetu_bot)',
-        url: 'https://t.me/YojnaSetu_bot'
-      }
     }
   ]);
 
   const presetChips = [
-    '📲 Connect Telegram Bot @YojnaSetu_bot',
     'PM Kisan ₹6000 registration steps',
     'Collateral-free Mudra business loan',
     'PM Vishwakarma ₹15k toolkit voucher',
@@ -58,29 +45,6 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
   const handleSend = (textToSend?: string) => {
     const query = (textToSend || input).trim();
     if (!query) return;
-
-    // Special trigger for Telegram bot
-    if (query.includes('Telegram') || query.includes('YojnaSetu_bot')) {
-      const userMsg: ChatMessage = {
-        id: `user-${Date.now()}`,
-        sender: 'user',
-        text: query,
-      };
-
-      const aiMsg: ChatMessage = {
-        id: `ai-${Date.now()}`,
-        sender: 'ai',
-        text: '📱 You can connect with our official Telegram Bot (@YojnaSetu_bot) 24/7 for instant updates, scheme alerts, and step-by-step guidance on your phone!',
-        actionLink: {
-          label: 'Open @YojnaSetu_bot on Telegram',
-          url: 'https://t.me/YojnaSetu_bot'
-        }
-      };
-
-      setMessages(prev => [...prev, userMsg, aiMsg]);
-      setInput('');
-      return;
-    }
 
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -103,7 +67,7 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
     let finalMatched: Scheme[] = [];
 
     if (matched.length > 0) {
-      aiText = `Based on official database records, here are the top scheme(s) matching "${query}":`;
+      aiText = `Based on official database records, here are top scheme(s) matching "${query}":`;
       finalMatched = matched.slice(0, 3);
     } else if (queryLower.includes('loan') || queryLower.includes('business')) {
       aiText = `Looking for business loans? Here are top collateral-free schemes including PMMY Mudra Loan and Stand Up India:`;
@@ -142,7 +106,7 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
             <h3 className="font-bold text-sm">Scheme AI Assistant</h3>
             <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-              Online | Telegram @YojnaSetu_bot
+              Online | Verified Official Database
             </span>
           </div>
         </div>
@@ -153,22 +117,6 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
         >
           <X className="w-5 h-5" />
         </button>
-      </div>
-
-      {/* Telegram Bot Link Banner */}
-      <div className="bg-sky-500/10 border-b border-sky-500/20 px-4 py-2.5 flex items-center justify-between text-xs text-sky-900 dark:text-sky-300">
-        <div className="flex items-center gap-1.5">
-          <MessageSquare className="w-4 h-4 text-sky-500 shrink-0" />
-          <span className="font-bold">Telegram Bot: @YojnaSetu_bot</span>
-        </div>
-        <a
-          href="https://t.me/YojnaSetu_bot"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-sky-500 hover:bg-sky-600 text-white font-extrabold text-[10px] px-2.5 py-1 rounded-md transition-colors flex items-center gap-1"
-        >
-          Open Bot <ExternalLink className="w-3 h-3" />
-        </a>
       </div>
 
       {/* Preset Chips */}
@@ -203,21 +151,6 @@ export const ChatbotDrawer: React.FC<ChatbotDrawerProps> = ({ isOpen, onClose, o
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700'
             }`}>
               <p className="leading-relaxed">{m.text}</p>
-
-              {/* Action Link button inside message if provided */}
-              {m.actionLink && (
-                <div className="pt-1">
-                  <a
-                    href={m.actionLink.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 bg-sky-500 hover:bg-sky-600 text-white font-extrabold text-[11px] px-3 py-1.5 rounded-xl transition-all shadow-sm"
-                  >
-                    <span>{m.actionLink.label}</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              )}
 
               {m.matchedSchemes && m.matchedSchemes.length > 0 && (
                 <div className="pt-2 space-y-2">

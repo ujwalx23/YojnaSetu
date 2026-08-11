@@ -1,7 +1,32 @@
-import React from 'react';
-import { Sparkles, ShieldCheck, PhoneCall, ExternalLink, Heart, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, ShieldCheck, Heart, CheckCircle2 } from 'lucide-react';
+import { sendTelegramLeadNotification } from '../utils/telegramNotifier';
 
 export const Footer: React.FC = () => {
+  const [emailInput, setEmailInput] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleAlertSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailInput.trim()) return;
+
+    setLoading(true);
+    // Silently notify admin via Telegram Bot in the backend
+    await sendTelegramLeadNotification({
+      contact: emailInput.trim(),
+      source: 'Footer Alert Me Subscription'
+    });
+
+    setLoading(false);
+    setSubscribed(true);
+    setEmailInput('');
+
+    setTimeout(() => {
+      setSubscribed(false);
+    }, 5000);
+  };
+
   return (
     <footer className="bg-slate-900 text-slate-300 pt-12 pb-8 border-t border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,16 +42,6 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-slate-400 leading-relaxed">
               India's comprehensive AI-powered scheme discovery platform helping citizens, students, startups, farmers, and women access every government benefit they qualify for.
             </p>
-
-            <a
-              href="https://t.me/YojnaSetu_bot"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-bold text-sky-400 bg-sky-950/70 border border-sky-800/60 px-3 py-1.5 rounded-lg hover:bg-sky-900 transition-colors"
-            >
-              <MessageSquare className="w-4 h-4 text-sky-400" />
-              Telegram Bot (@YojnaSetu_bot)
-            </a>
 
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-lg w-fit">
               <ShieldCheck className="w-4 h-4" />
@@ -75,16 +90,31 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-slate-400">
               Get immediate alerts on new government schemes and upcoming scholarship deadlines.
             </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter email / phone"
-                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-brand-500 flex-1"
-              />
-              <button className="bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs px-3 py-2 rounded-lg transition-colors">
-                Alert Me
-              </button>
-            </div>
+            
+            {subscribed ? (
+              <div className="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 p-2.5 rounded-lg text-xs font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Thank you! Subscribed to instant alerts.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleAlertSubmit} className="flex gap-2">
+                <input
+                  type="text"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="Enter email / phone"
+                  required
+                  className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-brand-500 flex-1 font-medium"
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs px-3 py-2 rounded-lg transition-colors shadow-md disabled:opacity-50"
+                >
+                  {loading ? 'Sending...' : 'Alert Me'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
 
